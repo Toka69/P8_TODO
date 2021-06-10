@@ -13,6 +13,12 @@ RUN apt update -y && \
 RUN wget https://get.symfony.com/cli/installer -O - | bash && \
     mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
+#Install Blackfire
+RUN apt install gnupg2 -y && \
+    wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add - && \
+    echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
+    apt update && apt install blackfire blackfire-php -y
+
 #Install Panther
 RUN apt install -y zlib1g-dev chromium
 ENV PANTHER_NO_SANDBOX 1
