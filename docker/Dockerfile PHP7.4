@@ -1,4 +1,4 @@
-FROM php:5.5
+FROM php:7.4
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
@@ -18,5 +18,12 @@ RUN apt install gnupg2 -y && \
     wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add - && \
     echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
     apt update && apt install blackfire blackfire-php -y
+
+#Install Panther
+RUN apt install -y zlib1g-dev chromium
+ENV PANTHER_NO_SANDBOX 1
+RUN composer require symfony/panther --dev && \
+    composer require --dev dbrekelmans/bdi && \
+    vendor/bin/bdi detect drivers
 
 WORKDIR workspaces/p8/
