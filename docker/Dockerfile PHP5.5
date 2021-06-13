@@ -13,6 +13,9 @@ RUN apt update -y && \
 RUN wget https://get.symfony.com/cli/installer -O - | bash && \
     mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
+#Configure PHP date.timezone
+COPY conf/phpTimezone.ini /usr/local/etc/php/conf.d/phpTimezone.ini
+
 #Install Blackfire
 RUN apt install gnupg2 -y && \
     wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add - && \
