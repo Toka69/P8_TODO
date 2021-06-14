@@ -1,5 +1,5 @@
-image: tokashi69/mytest
-#image: jakzal/phpqa:php7.4
+#image: tokashi69/mytest
+image: jakzal/phpqa:php5.5
 
 before_script:
   - composer install
@@ -17,23 +17,29 @@ security-checker:
   stage: securityChecker
   script:
     - local-php-security-checker  --path=./composer.lock
-  allow_failure: false
+  allow_failure: 
 
 phpcs:
   stage: CodingStandards
   script:
     - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
-  allow_failure: false
+  allow_failure: true
 
 phpstan:
   stage: CodingStandards
   script:
     - phpstan analyse ./src
-  allow_failure: false
+  allow_failure: true
 
 phpunit:
   stage: UnitTests
   script:
     - composer require --dev dbrekelmans/bdi && vendor/bin/bdi detect drivers
     - php bin/phpunit
-  allow_failure: false
+  allow_failure: true
+
+phpmd:
+  stage: CodingStandards
+  script:
+    - phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
+  allow_failure: true
