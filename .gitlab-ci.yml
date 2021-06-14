@@ -17,7 +17,7 @@ security-checker:
   stage: securityChecker
   script:
     - local-php-security-checker  --path=./composer.lock
-  allow_failure: 
+  allow_failure: true
 
 phpcs:
   stage: CodingStandards
