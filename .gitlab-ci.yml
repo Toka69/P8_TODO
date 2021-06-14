@@ -1,5 +1,5 @@
-#image: tokashi69/mytest
-image: jakzal/phpqa:php5.5
+image: tokashi69/mytest
+#image: jakzal/phpqa:php7.4
 
 before_script:
   - composer install
