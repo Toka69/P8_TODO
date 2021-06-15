@@ -29,4 +29,13 @@ RUN composer require symfony/panther --dev && \
     composer require --dev dbrekelmans/bdi && \
     vendor/bin/bdi detect drivers
 
+#Install analysis tools
+RUN composer require --dev phpstan/phpstan && \
+    composer require --dev squizlabs/php_codesniffer && \
+    composer require --dev phpmd/phpmd && \
+    composer require --dev sebastian/phpcpd && \
+    composer require --dev phpmetrics/phpmetrics && \
+    composer require --dev friendsoftwig/twigcs && \
+    composer require --dev icanhazstring/composer-unused
+
 WORKDIR workspaces/p8/
