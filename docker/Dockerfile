@@ -3,7 +3,7 @@ FROM php:7.4
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 #PHP extensions
-RUN install-php-extensions mysqli pdo_mysql xdebug intl zip @composer
+RUN install-php-extensions mysqli pdo_mysql intl zip @composer
 
 #Install GIT and ZIP
 RUN apt update -y && \
