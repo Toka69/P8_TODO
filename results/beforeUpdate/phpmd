@@ -1,0 +1,10 @@
+vendor/bin/phpmd src text cleancode,codesize,controversial,design,naming,unusedcode
+/workspaces/p8/src/AppBundle/Controller/SecurityController.php:14       Avoid unused parameters such as '$request'.
+/workspaces/p8/src/AppBundle/Controller/TaskController.php:32   Avoid variables with short names like $em. Configured minimum length is 3.
+/workspaces/p8/src/AppBundle/Controller/TaskController.php:86   Avoid variables with short names like $em. Configured minimum length is 3.
+/workspaces/p8/src/AppBundle/Controller/UserController.php:32   Avoid variables with short names like $em. Configured minimum length is 3.
+/workspaces/p8/src/AppBundle/Entity/Task.php:19 Avoid variables with short names like $id. Configured minimum length is 3.
+/workspaces/p8/src/AppBundle/Entity/Task.php:45 Missing class import via use statement (line '45', column '32').
+/workspaces/p8/src/AppBundle/Entity/User.php:22 Avoid variables with short names like $id. Configured minimum length is 3.
+/workspaces/p8/src/AppBundle/Form/TaskType.php:11       Avoid unused parameters such as '$options'.
+/workspaces/p8/src/AppBundle/Form/UserType.php:14       Avoid unused parameters such as '$options'.
