@@ -1,0 +1,33 @@
+vendor/bin/phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+Registering sniffs in the PSR12 standard... DONE (59 sniffs registered)
+Creating file list... DONE (9 files in queue)
+Changing into directory /workspaces/p8/src/AppBundle/Controller
+Processing SecurityController.php [PHP => 226 tokens in 42 lines]... DONE in 10ms (0 errors, 0 warnings)
+Processing UserController.php [PHP => 536 tokens in 69 lines]... DONE in 14ms (0 errors, 1 warnings)
+Processing TaskController.php [PHP => 660 tokens in 94 lines]... DONE in 16ms (0 errors, 1 warnings)
+Processing DefaultController.php [PHP => 88 tokens in 17 lines]... DONE in 3ms (0 errors, 0 warnings)
+Changing into directory /workspaces/p8/src/AppBundle/Form
+Processing TaskType.php [PHP => 112 tokens in 19 lines]... DONE in 3ms (0 errors, 0 warnings)
+Processing UserType.php [PHP => 256 tokens in 28 lines]... DONE in 6ms (0 errors, 0 warnings)
+Changing into directory /workspaces/p8/src/AppBundle
+Processing AppBundle.php [PHP => 34 tokens in 9 lines]... DONE in 1ms (0 errors, 0 warnings)
+Changing into directory /workspaces/p8/src/AppBundle/Entity
+Processing Task.php [PHP => 444 tokens in 93 lines]... DONE in 11ms (0 errors, 0 warnings)
+Processing User.php [PHP => 449 tokens in 90 lines]... DONE in 10ms (0 errors, 0 warnings)
+
+FILE: /workspaces/p8/src/AppBundle/Controller/UserController.php
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 18 | WARNING | Line exceeds 120 characters; contains 131 characters
+----------------------------------------------------------------------
+
+
+FILE: /workspaces/p8/src/AppBundle/Controller/TaskController.php
+----------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 18 | WARNING | Line exceeds 120 characters; contains 131 characters
+----------------------------------------------------------------------
+
+Time: 193ms; Memory: 6MB
