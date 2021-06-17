@@ -1,0 +1,61 @@
+composer validate --with-dependencies
+
+./composer.json is valid for simple usage with Composer but has
+strict errors that make it unable to be published as a package
+See https://getcomposer.org/doc/04-schema.md for details on the schema
+# Publish errors
+- description : The property description is required
+# General warnings
+- Defining autoload.psr-4 with an empty namespace prefix is a bad idea for performance
+composer/ca-bundle is valid
+composer/package-versions-deprecated is valid
+composer/xdebug-handler is valid
+doctrine/annotations is valid
+doctrine/cache is valid
+doctrine/collections is valid
+doctrine/common is valid
+doctrine/dbal is valid
+doctrine/deprecations is valid
+doctrine/doctrine-bundle is valid
+doctrine/doctrine-cache-bundle is valid
+doctrine/event-manager is valid
+doctrine/inflector is valid
+doctrine/instantiator is valid
+doctrine/lexer is valid
+doctrine/orm is valid
+doctrine/persistence is valid
+doctrine/reflection is valid
+incenteev/composer-parameter-handler is valid
+jdorn/sql-formatter is valid
+monolog/monolog is valid for simple usage with Composer but has
+strict errors that make it unable to be published as a package
+# Publish errors
+- The property lock is not defined and the definition does not allow additional properties
+nikic/php-parser is valid
+pdepend/pdepend is valid
+phpmd/phpmd is valid
+phpmetrics/phpmetrics is valid
+phpstan/phpstan is valid
+phpunit/php-file-iterator is valid
+phpunit/php-timer is valid
+psr/cache is valid
+psr/log is valid
+sebastian/cli-parser is valid
+sebastian/phpcpd is valid
+sebastian/version is valid
+sensio/distribution-bundle is valid
+sensio/framework-extra-bundle is valid
+sensio/generator-bundle is valid
+sensiolabs/security-checker is valid
+squizlabs/php_codesniffer is valid
+swiftmailer/swiftmailer is valid
+symfony/monolog-bundle is valid
+symfony/phpunit-bridge is valid
+symfony/polyfill-apcu is valid
+symfony/polyfill-ctype is valid
+symfony/polyfill-intl-icu is valid
+symfony/polyfill-mbstring is valid
+symfony/polyfill-util is valid
+symfony/swiftmailer-bundle is valid
+symfony/symfony is valid
+twig/twig is valid
