@@ -35,7 +35,7 @@ RUN composer require --dev phpstan/phpstan && \
     composer require --dev phpmd/phpmd && \
     composer require --dev sebastian/phpcpd && \
     composer require --dev phpmetrics/phpmetrics && \
-    composer require --dev friendsoftwig/twigcs && \
+    composer require --dev friendsoftwig/twigcs=3.0 && \
     composer require --dev icanhazstring/composer-unused
 
 WORKDIR workspaces/p8/
