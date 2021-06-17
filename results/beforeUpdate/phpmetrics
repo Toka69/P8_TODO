@@ -1,0 +1,60 @@
+vendor/bin/phpmetrics src
+
+
+Executing system analyzes...
+
+Executing composer analyzes, requesting https://packagist.org...
+
+LOC
+    Lines of code                               310
+    Logical lines of code                       227
+    Comment lines of code                       83
+    Average volume                              107.33
+    Average comment weight                      24.44
+    Average intelligent content                 24.44
+    Logical lines of code by class              25
+    Logical lines of code by method             13
+
+Object oriented programming
+    Classes                                     9
+    Interface                                   0
+    Methods                                     18
+    Methods by class                            2
+    Lack of cohesion of methods                 1.44
+
+Coupling
+    Average afferent coupling                   0.22
+    Average efferent coupling                   2.22
+    Average instability                         0.89
+    Depth of Inheritance Tree                   1.6
+
+Package
+    Packages                                    4
+    Average classes per package                 2.25
+    Average distance                            0.09
+    Average incoming class dependencies         0.5
+    Average outgoing class dependencies         2.5
+    Average incoming package dependencies       0.25
+    Average outgoing package dependencies       2
+
+Complexity
+    Average Cyclomatic complexity by class      1.44
+    Average Weighted method count by class      4.22
+    Average Relative system complexity          68.03
+    Average Difficulty                          2.33
+
+Bugs
+    Average bugs by class                       0.04
+    Average defects by class (Kan)              0.18
+
+Violations
+    Critical                                    0
+    Error                                       0
+    Warning                                     0
+    Information                                 0
+
+
+
+
+Done
+
