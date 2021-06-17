@@ -1,0 +1,111 @@
+vendor/bin/phpstan analyse src tests -l 6
+ 10/10 [â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“â–“] 100%
+
+ ------ ------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Controller/DefaultController.php
+ ------ ------------------------------------------------------------------------------------------------
+  13     Method AppBundle\Controller\DefaultController::indexAction() has no return typehint specified.
+ ------ ------------------------------------------------------------------------------------------------
+
+ ------ -------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Controller/SecurityController.php
+ ------ -------------------------------------------------------------------------------------------------
+  14     Method AppBundle\Controller\SecurityController::loginAction() has no return typehint specified.
+  30     Method AppBundle\Controller\SecurityController::loginCheck() has no return typehint specified.
+  38     Method AppBundle\Controller\SecurityController::logoutCheck() has no return typehint specified.
+ ------ -------------------------------------------------------------------------------------------------
+
+ ------ --------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Controller/TaskController.php
+ ------ --------------------------------------------------------------------------------------------------
+  16     Method AppBundle\Controller\TaskController::listAction() has no return typehint specified.
+  24     Method AppBundle\Controller\TaskController::createAction() has no return typehint specified.
+  48     Method AppBundle\Controller\TaskController::editAction() has no return typehint specified.
+  71     Method AppBundle\Controller\TaskController::toggleTaskAction() has no return typehint specified.
+  84     Method AppBundle\Controller\TaskController::deleteTaskAction() has no return typehint specified.
+ ------ --------------------------------------------------------------------------------------------------
+
+ ------ ----------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Controller/UserController.php
+ ------ ----------------------------------------------------------------------------------------------
+  16     Method AppBundle\Controller\UserController::listAction() has no return typehint specified.
+  24     Method AppBundle\Controller\UserController::createAction() has no return typehint specified.
+  50     Method AppBundle\Controller\UserController::editAction() has no return typehint specified.
+ ------ ----------------------------------------------------------------------------------------------
+
+ ------ ---------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Entity/Task.php
+ ------ ---------------------------------------------------------------------------------------------------
+  19     Property AppBundle\Entity\Task::$id has no typehint specified.
+  24     Property AppBundle\Entity\Task::$createdAt has no typehint specified.
+  30     Property AppBundle\Entity\Task::$title has no typehint specified.
+  36     Property AppBundle\Entity\Task::$content has no typehint specified.
+  41     Property AppBundle\Entity\Task::$isDone has no typehint specified.
+  49     Method AppBundle\Entity\Task::getId() has no return typehint specified.
+  54     Method AppBundle\Entity\Task::getCreatedAt() has no return typehint specified.
+  59     Method AppBundle\Entity\Task::setCreatedAt() has no return typehint specified.
+  59     Method AppBundle\Entity\Task::setCreatedAt() has parameter $createdAt with no typehint specified.
+  64     Method AppBundle\Entity\Task::getTitle() has no return typehint specified.
+  69     Method AppBundle\Entity\Task::setTitle() has no return typehint specified.
+  69     Method AppBundle\Entity\Task::setTitle() has parameter $title with no typehint specified.
+  74     Method AppBundle\Entity\Task::getContent() has no return typehint specified.
+  79     Method AppBundle\Entity\Task::setContent() has no return typehint specified.
+  79     Method AppBundle\Entity\Task::setContent() has parameter $content with no typehint specified.
+  84     Method AppBundle\Entity\Task::isDone() has no return typehint specified.
+  89     Method AppBundle\Entity\Task::toggle() has no return typehint specified.
+  89     Method AppBundle\Entity\Task::toggle() has parameter $flag with no typehint specified.
+ ------ ---------------------------------------------------------------------------------------------------
+
+ ------ -------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Entity/User.php
+ ------ -------------------------------------------------------------------------------------------------
+  22     Property AppBundle\Entity\User::$id has no typehint specified.
+  28     Property AppBundle\Entity\User::$username has no typehint specified.
+  33     Property AppBundle\Entity\User::$password has no typehint specified.
+  40     Property AppBundle\Entity\User::$email has no typehint specified.
+  42     Method AppBundle\Entity\User::getId() has no return typehint specified.
+  52     Method AppBundle\Entity\User::setUsername() has no return typehint specified.
+  52     Method AppBundle\Entity\User::setUsername() has parameter $username with no typehint specified.
+  67     Method AppBundle\Entity\User::setPassword() has no return typehint specified.
+  67     Method AppBundle\Entity\User::setPassword() has parameter $password with no typehint specified.
+  72     Method AppBundle\Entity\User::getEmail() has no return typehint specified.
+  77     Method AppBundle\Entity\User::setEmail() has no return typehint specified.
+  77     Method AppBundle\Entity\User::setEmail() has parameter $email with no typehint specified.
+  87     Method AppBundle\Entity\User::eraseCredentials() has no return typehint specified.
+ ------ -------------------------------------------------------------------------------------------------
+
+ ------ -------------------------------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Form/TaskType.php
+ ------ -------------------------------------------------------------------------------------------------------------------------
+  11     Method AppBundle\Form\TaskType::buildForm() has no return typehint specified.
+  11     Method AppBundle\Form\TaskType::buildForm() has parameter $builder with no value type specified in iterable type
+         Symfony\Component\Form\FormBuilderInterface.
+         ðŸ’¡ See: https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+  11     Method AppBundle\Form\TaskType::buildForm() has parameter $options with no value type specified in iterable type array.
+         ðŸ’¡ See: https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+ ------ -------------------------------------------------------------------------------------------------------------------------
+
+ ------ -------------------------------------------------------------------------------------------------------------------------
+  Line   src/AppBundle/Form/UserType.php
+ ------ -------------------------------------------------------------------------------------------------------------------------
+  14     Method AppBundle\Form\UserType::buildForm() has no return typehint specified.
+  14     Method AppBundle\Form\UserType::buildForm() has parameter $builder with no value type specified in iterable type
+         Symfony\Component\Form\FormBuilderInterface.
+         ðŸ’¡ See: https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+  14     Method AppBundle\Form\UserType::buildForm() has parameter $options with no value type specified in iterable type array.
+         ðŸ’¡ See: https://phpstan.org/blog/solving-phpstan-no-value-type-specified-in-iterable-type
+ ------ -------------------------------------------------------------------------------------------------------------------------
+
+ ------ --------------------------------------------------------------------
+  Line   tests/AppBundle/Controller/DefaultControllerTest.php
+ ------ --------------------------------------------------------------------
+         Class PHPUnit_Framework_TestCase not found.
+         ðŸ’¡ Learn more at https://phpstan.org/user-guide/discovering-symbols
+  5      Class PHPUnit_Framework_TestCase not found.
+         ðŸ’¡ Learn more at https://phpstan.org/user-guide/discovering-symbols
+  7      Class PHPUnit_Framework_TestCase not found.
+         ðŸ’¡ Learn more at https://phpstan.org/user-guide/discovering-symbols
+ ------ --------------------------------------------------------------------
+
+
+ [ERROR] Found 52 errors
