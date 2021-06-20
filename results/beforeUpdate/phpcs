@@ -1,3 +1,5 @@
+************** TEST 1 src **************
+
 vendor/bin/phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
 Registering sniffs in the PSR12 standard... DONE (59 sniffs registered)
 Creating file list... DONE (9 files in queue)
@@ -31,3 +33,90 @@ FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
 ----------------------------------------------------------------------
 
 Time: 193ms; Memory: 6MB
+
+
+************** TEST 2 web **************
+
+vendor/bin/phpcs -v --standard=PSR12 --ignore=./web/css,./web/js ./web
+Registering sniffs in the PSR12 standard... DONE (59 sniffs registered)
+Creating file list... DONE (6 files in queue)
+Changing into directory /workspaces/p8/web
+Processing app.php [PHP => 107 tokens in 18 lines]... DONE in 5ms (4 errors, 1 warnings)
+Processing app_dev.php [PHP => 129 tokens in 30 lines]... DONE in 3ms (3 errors, 0 warnings)
+Processing config.php [PHP => 762 tokens in 422 lines]... DONE in 19ms (20 errors, 15 warnings)
+Changing into directory /workspaces/p8/web/bundles/framework/css
+Processing body.css [CSS => 1366 tokens in 139 lines]... DONE in 22ms (0 errors, 0 warnings)
+Processing exception.css [CSS => 903 tokens in 126 lines]... DONE in 13ms (0 errors, 0 warnings)
+Processing structure.css [CSS => 442 tokens in 69 lines]... DONE in 6ms (0 errors, 0 warnings)
+
+FILE: /workspaces/p8/web/app.php
+-------------------------------------------------------------------------
+FOUND 4 ERRORS AND 1 WARNING AFFECTING 3 LINES
+-------------------------------------------------------------------------
+  6 | ERROR   | [x] Expected at least 1 space before "."; 0 found
+  6 | ERROR   | [x] Expected at least 1 space after "."; 0 found
+  7 | ERROR   | [x] Expected at least 1 space before "."; 0 found
+  7 | ERROR   | [x] Expected at least 1 space after "."; 0 found
+ 13 | WARNING | [ ] Line exceeds 120 characters; contains 131 characters
+-------------------------------------------------------------------------
+PHPCBF CAN FIX THE 4 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+-------------------------------------------------------------------------
+
+
+FILE: /workspaces/p8/web/app_dev.php
+-----------------------------------------------------------------------------------
+FOUND 3 ERRORS AFFECTING 2 LINES
+-----------------------------------------------------------------------------------
+  1 | ERROR | [x] End of line character is invalid; expected "\n" but found "\r\n"
+ 22 | ERROR | [x] Expected at least 1 space before "."; 0 found
+ 22 | ERROR | [x] Expected at least 1 space after "."; 0 found
+-----------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 3 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+-----------------------------------------------------------------------------------
+
+
+FILE: /workspaces/p8/web/config.php
+----------------------------------------------------------------------------------------------------------------------------------
+FOUND 20 ERRORS AND 15 WARNINGS AFFECTING 27 LINES
+----------------------------------------------------------------------------------------------------------------------------------
+  17 | ERROR   | [x] The first expression of a multi-line control structure must be on the line after the opening parenthesis
+  20 | ERROR   | [x] Each line in a multi-line control structure must be indented at least once; expected at least 4 spaces, but
+     |         |     found 0
+  20 | ERROR   | [x] The closing parenthesis of a multi-line control structure must be on the line after the last expression
+  25 | ERROR   | [x] Expected at least 1 space before "."; 0 found
+  25 | ERROR   | [x] Expected at least 1 space after "."; 0 found
+  96 | WARNING | [ ] Line exceeds 120 characters; contains 163 characters
+ 119 | WARNING | [ ] Line exceeds 120 characters; contains 1245 characters
+ 224 | WARNING | [ ] Line exceeds 120 characters; contains 571 characters
+ 228 | WARNING | [ ] Line exceeds 120 characters; contains 596 characters
+ 234 | WARNING | [ ] Line exceeds 120 characters; contains 266 characters
+ 238 | WARNING | [ ] Line exceeds 120 characters; contains 595 characters
+ 242 | WARNING | [ ] Line exceeds 120 characters; contains 640 characters
+ 248 | WARNING | [ ] Line exceeds 120 characters; contains 298 characters
+ 273 | WARNING | [ ] Line exceeds 120 characters; contains 320 characters
+ 336 | WARNING | [ ] Line exceeds 120 characters; contains 2018 characters
+ 344 | WARNING | [ ] Line exceeds 120 characters; contains 624 characters
+ 370 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 372 | WARNING | [ ] Line exceeds 120 characters; contains 122 characters
+ 374 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 382 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 385 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 385 | ERROR   | [x] Newline required after opening brace
+ 385 | ERROR   | [x] Closing brace must be on a line by itself
+ 385 | ERROR   | [x] Expected 1 space(s) after ELSE keyword; 0 found
+ 385 | ERROR   | [x] Newline required after opening brace
+ 385 | ERROR   | [x] Closing brace must be on a line by itself
+ 385 | WARNING | [ ] Line exceeds 120 characters; contains 144 characters
+ 389 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 397 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 399 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 400 | WARNING | [ ] Line exceeds 120 characters; contains 174 characters
+ 401 | ERROR   | [x] Expected 1 space(s) after ELSE keyword; 0 found
+ 407 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+ 408 | WARNING | [ ] Line exceeds 120 characters; contains 127 characters
+ 412 | ERROR   | [x] Expected 1 space(s) after closing parenthesis; found 0
+----------------------------------------------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 20 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+----------------------------------------------------------------------------------------------------------------------------------
+
+Time: 118ms; Memory: 8MB
