@@ -1,0 +1,19 @@
+/workspaces/p8/app/Resources# ../../vendor/bin/twigcs lint views
+
+views/task/create.html.twig
+l.5 c.39 : ERROR There should be no space before ":".
+views/task/list.html.twig
+l.15 c.61 : ERROR There should be no space before ":".
+l.19 c.64 : ERROR There should be no space before ":".
+l.24 c.64 : ERROR There should be no space before ":".
+views/task/edit.html.twig
+l.5 c.39 : ERROR There should be no space before ":".
+l.5 c.66 : ERROR There should be no space before ":".
+views/user/create.html.twig
+l.8 c.39 : ERROR There should be no space before ":".
+views/user/list.html.twig
+l.30 c.65 : ERROR There should be no space before ":".
+views/user/edit.html.twig
+l.8 c.39 : ERROR There should be no space before ":".
+l.8 c.65 : ERROR There should be no space before ":".
+10 violation(s) found

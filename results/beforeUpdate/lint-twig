@@ -1,0 +1,5 @@
+ php bin/console lint:twig app/Resources/views
+
+
+ [OK] All 9 Twig files contain valid syntax.
+
