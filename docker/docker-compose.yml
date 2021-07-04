@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  webapp_p8_sf53:
+    build: .
+    container_name: P8_TODO_SF53
+    ports:
+      - '4060:8000'
+    volumes:
+      - ../:/workspaces/p8_SF53/
+    command: sleep infinity
+
+networks:
+  default:
+    external:
+      name: my-network
