@@ -38,4 +38,4 @@ RUN composer require --dev phpstan/phpstan && \
     composer require --dev friendsoftwig/twigcs=3.0 && \
     composer require --dev icanhazstring/composer-unused
 
-WORKDIR workspaces/p8/
+WORKDIR workspaces/p8_SF53
