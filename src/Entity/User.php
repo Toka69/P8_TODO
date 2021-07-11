@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -39,6 +40,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Blank(groups="profile")
+     * @Assert\Length(max=4096)
+     * @Assert\Regex(
+     *     pattern="/.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/",
+     *     message="The password must contain between 8 and 20 characters, at least 1 number, at least one letter, at least one uppercase!"
+     * )
+     */
+    private $plainPassword;
 
     public function getId(): ?int
     {
@@ -102,6 +114,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
