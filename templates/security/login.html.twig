@@ -3,5 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
+    {{ form_start(formView) }}
+    {{ form_widget(formView) }}
+    {{ form_end(formView) }}
 {% endblock %}
