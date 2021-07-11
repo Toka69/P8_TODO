@@ -43,15 +43,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Blank(groups="profile")
-     * @Assert\Length(max=4096)
-     * @Assert\Regex(
-     *     pattern="/.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/",
-     *     message="The password must contain between 8 and 20 characters, at least 1 number, at least one letter, at least one uppercase!"
-     * )
-     */
     private $plainPassword;
 
     public function getId(): ?int
