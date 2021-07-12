@@ -14,7 +14,7 @@ class TaskController extends AbstractController
      */
     public function list()
     {
-
+        return $this->render('task/list.html.twig');
     }
 
     /**
@@ -22,7 +22,7 @@ class TaskController extends AbstractController
      */
     public function create()
     {
-
+        return $this->render('task/create.html.twig');
     }
 
     /**
@@ -30,7 +30,7 @@ class TaskController extends AbstractController
      */
     public function edit()
     {
-
+        return $this->render('task/edit.html.twig');
     }
 
     /**

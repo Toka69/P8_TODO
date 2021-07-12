@@ -16,7 +16,7 @@ class UserController extends AbstractController
      */
     public function list()
     {
-
+        return $this->render('user/list.html.twig');
     }
 
     /**
@@ -24,7 +24,7 @@ class UserController extends AbstractController
      */
     public function create()
     {
-
+        return $this->render('user/create.html.twig');
     }
 
     /**
@@ -32,6 +32,6 @@ class UserController extends AbstractController
      */
     public function edit()
     {
-
+        return $this->render('user/edit.html.twig');
     }
 }
