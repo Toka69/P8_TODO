@@ -1,1 +1,12 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block header_title %}<h1>Créer un utilisateur</h1>{% endblock %}
+{% block header_img %}{% endblock %}
+
+{% block body %}
+    {{ form_start(formView) }}
+    {{ form_widget(formView) }}
+    <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+    {{ form_end(formView) }}
+{% endblock %}
