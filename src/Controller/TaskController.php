@@ -52,6 +52,8 @@ class TaskController extends AbstractController implements AuthenticatedControll
      */
     public function edit(Task $task, Request $request, EntityManagerInterface $entityManager)
     {
+        $this->denyAccessUnlessGranted('EDIT', $task, "You are not the owner of this task and you are not authorized to edit it.");
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -74,6 +76,8 @@ class TaskController extends AbstractController implements AuthenticatedControll
      */
     public function toggle(Task $task, EntityManagerInterface $entityManager)
     {
+        $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
+
         $task->toggle(!$task->getIsDone());
         $entityManager->flush();
 
@@ -87,6 +91,8 @@ class TaskController extends AbstractController implements AuthenticatedControll
      */
     public function delete(Task $task, EntityManagerInterface $entityManager)
     {
+        $this->denyAccessUnlessGranted('DELETE', $task, "You are not the owner of this task and you are not authorized to delete it.");
+
         $entityManager->remove($task);
         $entityManager->flush();
 
