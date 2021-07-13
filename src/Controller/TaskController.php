@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,7 +15,7 @@ class TaskController extends AbstractController
      */
     public function list()
     {
-
+        return $this->render('task/list.html.twig');
     }
 
     /**
@@ -22,15 +23,22 @@ class TaskController extends AbstractController
      */
     public function create()
     {
-
+        $form = $this->createForm(TaskType::class);
+        return $this->render('task/create.html.twig', [
+            'form' => $form->createView()
+                ]
+        );
     }
 
     /**
-     * @Route("/tasks/edit", name="task_edit")
+     * @Route("/tasks/{id}/edit", name="task_edit")
      */
     public function edit()
     {
-
+        $form = $this->createForm(TaskType::class);
+        return $this->render('task/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
