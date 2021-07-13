@@ -19,6 +19,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function list(UserRepository $userRepository): Response
     {
