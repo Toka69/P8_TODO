@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/users/list", name="user_list")
+     * @Route("/users", name="user_list")
      */
     public function list(UserRepository $userRepository): Response
     {
