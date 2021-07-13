@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -11,6 +12,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/users/list", name="user_list")
+     * @IsGranted("ROLE_USER")
      */
     public function list()
     {
