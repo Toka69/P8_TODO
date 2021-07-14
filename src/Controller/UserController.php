@@ -28,6 +28,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/create", name="user_create")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher) : Response
     {
