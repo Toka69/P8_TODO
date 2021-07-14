@@ -38,6 +38,7 @@ class UserController extends AbstractController implements AuthenticatedControll
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
