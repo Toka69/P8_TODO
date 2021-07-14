@@ -28,6 +28,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/create", name="user_create")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher) : Response
     {
@@ -60,15 +61,21 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function edit(User $user, Request $request, EntityManagerInterface $entityManager)
+    public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
     {
+        $this->denyAccessUnlessGranted('EDIT', $user, "You are not this user and you are not authorized to edit it.");
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            $user->setPassword(
+                $passwordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
 
             $entityManager->flush();
 
