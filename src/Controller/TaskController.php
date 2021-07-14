@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class TaskController extends AbstractController implements AuthenticatedController
+class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks", name="task_list")
