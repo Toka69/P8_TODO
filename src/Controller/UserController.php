@@ -62,6 +62,8 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
     {
+        $this->denyAccessUnlessGranted('EDIT', $user, "You are not this user and you are not authorized to edit it.");
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
