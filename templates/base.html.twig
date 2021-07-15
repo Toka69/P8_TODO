@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +12,9 @@
         <title>{% block title %}To Do List app{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('vendor/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/css/bootstrap-icons.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/css/shop-homepage.css') }}" rel="stylesheet">
+            <link href="{{ asset('vendor/css/custom.css') }}" rel="stylesheet">
         {% endblock %}
     </head>
 
@@ -19,11 +22,12 @@
         {% include "shared/_navbar.html.twig"  %}
 
         <div class="container">
-            <div class="row">
-{#                <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>#}
-
+            <div class="d-flex justify-content-between">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                {% endif %}
                 {% if app.user %}
-                    <a href="{{ path('security_logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
+                    <a href="{{ path('security_logout') }}" class="btn btn-danger">Se déconnecter</a>
                 {% endif %}
             </div>
 
