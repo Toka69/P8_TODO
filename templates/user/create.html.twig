@@ -6,6 +6,7 @@
 
 {% block body %}
     {{ form_start(formView) }}
+    {{ form_errors(formView) }}
     {{ form_widget(formView) }}
     <button type="submit" class="btn btn-success pull-right">Ajouter</button>
     {{ form_end(formView) }}
