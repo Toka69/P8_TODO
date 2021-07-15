@@ -78,7 +78,7 @@ class TaskController extends AbstractController
     {
         $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
 
-        $task->toggle(!$task->getIsDone());
+        $task->setIsDone(!$task->getIsDone());
         $entityManager->flush();
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
