@@ -22,7 +22,7 @@
         {% include "shared/_navbar.html.twig"  %}
 
         <div class="container">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-1">
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
                 {% endif %}
