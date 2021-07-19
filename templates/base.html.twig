@@ -22,13 +22,13 @@
         {% include "shared/_navbar.html.twig"  %}
 
         <div class="container">
-            <div class="d-flex justify-content-between mb-1">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
-                {% endif %}
-                {% if app.user %}
-                    <a href="{{ path('security_logout') }}" class="btn btn-danger">Se déconnecter</a>
-                {% endif %}
+            <div class="d-grid gap-2 mx-auto d-md-flex justify-content-md-between">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                    {% endif %}
+                    {% if app.user %}
+                        <a href="{{ path('security_logout') }}" class="btn btn-danger">Se déconnecter</a>
+                    {% endif %}
             </div>
 
             <div class="row">
