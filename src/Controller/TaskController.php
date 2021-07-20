@@ -24,6 +24,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/done", name="task_done")
+     */
+    public function listIsDone(TaskRepository $taskRepository)
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true])]);
+    }
+
+    /**
      * @Route("/tasks/create", name="task_create")
      */
     public function create(Request $request, EntityManagerInterface $entityManager)
@@ -78,7 +86,7 @@ class TaskController extends AbstractController
     {
         $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
 
-        $task->toggle(!$task->getIsDone());
+        $task->setIsDone(!$task->getIsDone());
         $entityManager->flush();
 
         $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
