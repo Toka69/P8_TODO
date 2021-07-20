@@ -71,6 +71,7 @@
         }
     },
     "require-dev": {
+        "symfony/panther": "^1.1",
         "symfony/stopwatch": "^5.3",
         "symfony/web-profiler-bundle": "^5.3"
     }
