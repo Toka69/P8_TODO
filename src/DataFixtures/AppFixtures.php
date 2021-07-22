@@ -41,6 +41,28 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($user2);
 
+        $user3 = new User();
+        $user3->setUsername('admin')
+            ->setRoles((array)'ROLE_ADMIN')
+            ->setPassword($this->passwordHasher->hashPassword(
+                $user3,
+                'test'
+            ))
+            ->setEmail('admin@test.com')
+        ;
+        $manager->persist($user3);
+
+        $user4 = new User();
+        $user4->setUsername('user')
+            ->setRoles((array)'ROLE_USER')
+            ->setPassword($this->passwordHasher->hashPassword(
+                $user4,
+                'test'
+            ))
+            ->setEmail('test@test.com')
+        ;
+        $manager->persist($user4);
+
         /**** Tasks ****/
         $task1 = new Task();
         $task1->setUser($user1)
@@ -57,6 +79,54 @@ class AppFixtures extends Fixture
             ->setIsDone(1)
         ;
         $manager->persist($task2);
+
+        $task3 = new Task();
+        $task3->setUser($user3)
+            ->setTitle('test 1')
+            ->setContent('test')
+            ->setIsDone(0)
+        ;
+        $manager->persist($task3);
+
+        $task4 = new Task();
+        $task4->setUser($user3)
+            ->setTitle('test 2')
+            ->setContent('test')
+            ->setIsDone(0)
+        ;
+        $manager->persist($task4);
+
+        $task5 = new Task();
+        $task5->setUser($user3)
+            ->setTitle('test 3')
+            ->setContent('test')
+            ->setIsDone(1)
+        ;
+        $manager->persist($task5);
+
+        $task6 = new Task();
+        $task6->setUser($user4)
+            ->setTitle('test 1')
+            ->setContent('test')
+            ->setIsDone(0)
+        ;
+        $manager->persist($task6);
+
+        $task7 = new Task();
+        $task7->setUser($user4)
+            ->setTitle('test 2')
+            ->setContent('test')
+            ->setIsDone(0)
+        ;
+        $manager->persist($task7);
+
+        $task8 = new Task();
+        $task8->setUser($user4)
+            ->setTitle('test 3')
+            ->setContent('test')
+            ->setIsDone(1)
+        ;
+        $manager->persist($task8);
 
         $manager->flush();
     }
