@@ -9,7 +9,7 @@ use Facebook\WebDriver\Exception\TimeoutException;
 use Symfony\Component\Panther\DomCrawler\Crawler;
 use Symfony\Component\Panther\PantherTestCase;
 
-class UserControllerTest extends PantherTestCase
+class TaskControllerTest extends PantherTestCase
 {
     /**
      * @throws NoSuchElementException
