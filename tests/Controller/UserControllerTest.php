@@ -63,8 +63,6 @@ class UserControllerTest extends PantherTestCase
         {
             $result = [];
             $nodeId = strstr(strstr($nodeValue, 'tasks/'), '/edit', true);
-
-            dump($nodeId);
             for($i=0; $i < count($tasksId); $i++){
                 $nodeContain = false;
                 if(str_contains($nodeId, $tasksId[$i]))
@@ -73,8 +71,6 @@ class UserControllerTest extends PantherTestCase
                 }
                 array_push($result, $nodeContain);
             }
-
-            dump($result);
 
             $arrayContain = false;
             if (in_array(true, $result))
