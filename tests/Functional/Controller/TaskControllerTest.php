@@ -44,9 +44,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testTasksList(): void
     {
-        $this->client->request('GET', '/');
-
-        $this->assertResponseIsSuccessful();
+        $this->pageWorks('/', 'Consulter la liste des tâches à faire');
     }
 
     /**
@@ -54,9 +52,22 @@ class TaskControllerTest extends WebTestCase
      */
     public function testTasksListIsDone(): void
     {
-        $this->client->request('GET', '/tasks/done');
+        $this->pageWorks('/tasks/done', 'Consulter la liste des tâches terminées');
+    }
+
+    /**
+     * @param $uri
+     * @param $linkToClick
+     * Click on the link and check that the page is correctly render an that's the expected route.
+     */
+    public function pageWorks($uri, $linkToClick)
+    {
+        $crawler = $this->client->request('GET', $uri);
+        $link = $crawler->selectLink($linkToClick)->link();
+        $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
+        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'));
     }
 
     /**
@@ -156,8 +167,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertStringContainsString('1', (string)$test);
     }
-
-
 
     protected function tearDown(): void
     {
