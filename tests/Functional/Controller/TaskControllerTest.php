@@ -71,6 +71,9 @@ class TaskControllerTest extends WebTestCase
         $this->displayedTasksAreCompliant('/tasks/done', true);
     }
 
+    /**
+     * Create a task from the homepage
+     */
     public function testCreate(): void
     {
         $this->goPage('/', 'Créer une nouvelle tâche');
@@ -86,6 +89,9 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals('user', $task->getUser()->getUsername());
     }
 
+    /**
+     * Delete a task by its owner.
+     */
     public function testDelete(): void
     {
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
@@ -97,6 +103,9 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals(null, $test, 'The task has not been deleted');
     }
 
+    /**
+     * Delete a task by another user is not allowed
+     */
     public function testDeleteByAnotherUser()
     {
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
