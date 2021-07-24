@@ -85,7 +85,6 @@ class TaskControllerTest extends WebTestCase
 
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => 'test 100', 'isDone' => false]);
 
-        $this->assertInstanceOf(Task::class, $task);
         $this->assertEquals('user', $task->getUser()->getUsername());
     }
 
