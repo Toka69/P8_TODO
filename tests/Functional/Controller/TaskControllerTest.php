@@ -78,7 +78,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->goPage('/', 'Créer une nouvelle tâche');
 
-        $crawler = $this->client->submitForm('Ajouter',[
+        $this->client->submitForm('Ajouter',[
             'task[title]' => 'test 100',
             'task[content]' => 'Un contenu de test'
         ]);
@@ -87,6 +87,25 @@ class TaskControllerTest extends WebTestCase
 
         $this->assertInstanceOf(Task::class, $task);
         $this->assertEquals('user', $task->getUser()->getUsername());
+    }
+
+    /**
+     * Edit a task from the "to do" list.
+     */
+    public function testEdit()
+    {
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
+
+        $this->client->request('GET', '/tasks/'.$task->getId().'/edit');
+
+        $this->client->submitForm('Modifier', [
+            'task[title]' => 'Une tâche à éditer',
+            'task[content]' => 'Et son contenu'
+        ]);
+
+        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+
+        $this->assertEquals('Une tâche à éditer', $test->getTitle());
     }
 
     /**
