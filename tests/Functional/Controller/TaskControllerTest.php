@@ -44,7 +44,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testTasksList(): void
     {
-        $this->pageWorks('/', 'Consulter la liste des tâches à faire');
+        $this->goPage('/', 'Consulter la liste des tâches à faire');
     }
 
     /**
@@ -52,7 +52,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testTasksListIsDone(): void
     {
-        $this->pageWorks('/', 'Consulter la liste des tâches terminées');
+        $this->goPage('/', 'Consulter la liste des tâches terminées');
     }
 
     /**
@@ -71,6 +71,21 @@ class TaskControllerTest extends WebTestCase
         $this->displayedTasksAreCompliant('/tasks/done', true);
     }
 
+    public function testCreate(): void
+    {
+        $this->goPage('/', 'Créer une nouvelle tâche');
+
+        $crawler = $this->client->submitForm('Ajouter',[
+            'task[title]' => 'test 100',
+            'task[content]' => 'Un contenu de test'
+        ]);
+
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => 'test 100', 'isDone' => false]);
+
+        $this->assertInstanceOf(Task::class, $task);
+        $this->assertEquals('user', $task->getUser()->getUsername());
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -86,14 +101,14 @@ class TaskControllerTest extends WebTestCase
      * @param $linkToClick
      * Click on the link and check that the page is correctly render and that's the expected route.
      */
-    public function pageWorks($uri, $linkToClick)
+    public function goPage($uri, $linkToClick)
     {
         $crawler = $this->client->request('GET', $uri);
         $link = $crawler->selectLink($linkToClick)->link();
         $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
-        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'));
+        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
     }
 
     /**
@@ -144,6 +159,6 @@ class TaskControllerTest extends WebTestCase
             $test = true;
         }
 
-        $this->assertStringContainsString('1', (string)$test);
+        $this->assertStringContainsString('1', (string)$test, 'The displayed tasks are not correct');
     }
 }
