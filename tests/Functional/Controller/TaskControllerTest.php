@@ -124,15 +124,33 @@ class TaskControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame('403');
     }
 
-//    public function testPassIsDone(): void
-//    {
-//
-//    }
-//
-//    public function testPassToDo(): void
-//    {
-//
-//    }
+    /**
+     * Toggle a "to do" to "is done" task.
+     */
+    public function testPassIsDone(): void
+    {
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => false]);
+
+        $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
+
+        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+
+        $this->assertEquals(true, $test->getIsDone());
+    }
+
+    /**
+     * Toggle a "is done" to "to do" task.
+     */
+    public function testPassToDo(): void
+    {
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => true]);
+
+        $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
+
+        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+
+        $this->assertEquals(false, $test->getIsDone());
+    }
 
     protected function tearDown(): void
     {
