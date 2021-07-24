@@ -86,6 +86,45 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals('user', $task->getUser()->getUsername());
     }
 
+    public function testDelete(): void
+    {
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
+
+        $this->client->request('GET', '/tasks/'.$task->getId().'/delete');
+
+        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+
+        $this->assertEquals(null, $test, 'The task has not been deleted');
+    }
+
+    public function testDeleteByAnotherUser()
+    {
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $this->client->loginUser($this->testUser);
+
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
+
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $this->client->loginUser($this->testUser);
+
+        $this->client->request('GET', '/tasks/'.$task->getId().'/delete');
+
+//        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+//        $this->assertEquals(true, $test, 'The task has been deleted by another user.');
+
+        $this->assertResponseStatusCodeSame('403');
+    }
+
+//    public function testPassIsDone(): void
+//    {
+//
+//    }
+//
+//    public function testPassToDo(): void
+//    {
+//
+//    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
