@@ -37,6 +37,9 @@ class UserControllerTest extends WebTestCase
         $this->connectWithUser('admin');
     }
 
+    /**
+     * Test if ROLE_ADMIN can access to user part.
+     */
     public function testSecurityRoleAdmin(){
         $this->client->request('GET', '/users');
         $this->assertResponseIsSuccessful();
@@ -49,6 +52,9 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    /**
+     * Test that non allowed user is stopped to access to user part.
+     */
     public function testSecurityRoleUser(){
         $this->connectWithUser('user');
         $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
@@ -66,8 +72,8 @@ class UserControllerTest extends WebTestCase
     public function testCreate(){
         $this->goPage('/', 'Créer un utilisateur');
 
-        $lastUser = $this->entityManager->getRepository(User::class)->findBy([], ['id'=>'DESC'],1,0);
-        $i = $lastUser[0]->getId()+1;
+        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id'=>'DESC'],1,0);
+        $i = $lastUser->getId()+1;
         $this->client->submitForm('Ajouter',[
             'user[username]' => 'user'.$i,
             'user[plainPassword][first]' => 'test',
@@ -80,10 +86,32 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals('user'.$i, $user->getUsername(), 'The user hasn\'t been created in the database');
     }
 
-//    public function testEdit(){
-//
-//    }
+    /**
+     * Edit a user
+     */
+    public function testEdit(){
+        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id'=>'DESC'],1,0);
 
+        $this->client->request('GET', '/users/'.$lastUser->getId().'/edit');
+
+        $i = $lastUser->getId()+1;
+
+        $this->client->submitForm('Modifier',[
+            'user[username]' => 'bob'.$i,
+            'user[plainPassword][first]' => 'test',
+            'user[plainPassword][second]' => 'test',
+            'user[email]' => 'bob'.$i.'@test.com'
+        ]);
+
+        $test = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $lastUser->getId()]);
+
+        $this->assertEquals('bob'.$i, $test->getUsername());
+    }
+
+    /**
+     * @param $user
+     * Connect easily with the user of your choice.
+     */
     public function connectWithUser($user){
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $user]);
         $this->client->loginUser($this->testUser);
