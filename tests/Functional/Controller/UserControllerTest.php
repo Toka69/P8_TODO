@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Tests\Functional\Controller;
+
+use App\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class UserControllerTest extends WebTestCase
+{
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * @var KernelBrowser
+     */
+    private $client;
+
+    /**
+     * @var User
+     */
+    private $testUser;
+
+    /**
+     * Set Up to load kernel and user
+     */
+    public function setUp(): void
+    {
+        $this->client = $this->createClient();
+        $this->entityManager = $this->client->getContainer()
+            ->get('doctrine')
+            ->getManager();
+
+        $this->connectWithUser('admin');
+    }
+
+    public function testSecurityRoleAdmin(){
+        $this->client->request('GET', '/users');
+        $this->assertResponseIsSuccessful();
+        $otherUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $this->client->request('GET', '/users');
+        $this->assertResponseIsSuccessful();
+        $this->client->request('GET', '/users/create');
+        $this->assertResponseIsSuccessful();
+        $this->client->request('GET', '/users/'.$otherUser->getId().'/edit');
+        $this->assertResponseIsSuccessful();
+    }
+
+    public function testSecurityRoleUser(){
+        $this->connectWithUser('user');
+        $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $this->client->request('GET', '/users');
+        $this->assertResponseStatusCodeSame('403');
+        $this->client->request('GET', '/users/create');
+        $this->assertResponseStatusCodeSame('403');
+        $this->client->request('GET', '/users/'.$otherUserRoleUser->getId().'/edit');
+        $this->assertResponseStatusCodeSame('403');
+    }
+
+    /**
+     * Create a new user from the homepage
+     */
+    public function testCreate(){
+        $this->goPage('/', 'Créer un utilisateur');
+
+        $lastUser = $this->entityManager->getRepository(User::class)->findBy([], ['id'=>'DESC'],1,0);
+        $i = $lastUser[0]->getId()+1;
+        $this->client->submitForm('Ajouter',[
+            'user[username]' => 'user'.$i,
+            'user[plainPassword][first]' => 'test',
+            'user[plainPassword][second]' => 'test',
+            'user[email]' => 'user'.$i.'@test.com'
+        ]);
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'user'.$i.'@test.com']);
+
+        $this->assertEquals('user'.$i, $user->getUsername(), 'The user hasn\'t been created in the database');
+    }
+
+//    public function testEdit(){
+//
+//    }
+
+    public function connectWithUser($user){
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $user]);
+        $this->client->loginUser($this->testUser);
+    }
+
+    /**
+     * @param $uri
+     * @param $linkToClick
+     * Click on the link and check that the page is correctly render and that's the expected route.
+     */
+    public function goPage($uri, $linkToClick)
+    {
+        $crawler = $this->client->request('GET', $uri);
+        $link = $crawler->selectLink($linkToClick)->link();
+        $this->client->click($link);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
+    }
+}
