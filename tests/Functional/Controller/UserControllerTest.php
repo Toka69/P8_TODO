@@ -25,7 +25,7 @@ class UserControllerTest extends WebTestCase
     private $testUser;
 
     /**
-     * Set Up to load kernel and user
+     * Set Up to load kernel, doctrine and user.
      */
     public function setUp(): void
     {

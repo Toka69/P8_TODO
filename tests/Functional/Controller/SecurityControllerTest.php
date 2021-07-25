@@ -3,14 +3,25 @@
 namespace App\Tests\Functional\Controller;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase
 {
+    /**
+     * @var KernelBrowser
+     */
     protected $client;
 
+    /**
+     * @var EntityManager
+     */
     protected $entityManager;
 
+    /**
+     * Set Up to load kernel, doctrine and user.
+     */
     public function setUp(): void
     {
         $this->client = self::createClient();
@@ -19,6 +30,9 @@ class SecurityControllerTest extends WebTestCase
             ->getManager();
     }
 
+    /**
+     * Login and check than the user is redirected on the homepage.
+     */
     public function testLogin(): void
     {
         $this->client->request('GET', '/login');
@@ -34,6 +48,9 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorTextContains('h1', 'Bienvenue');
     }
 
+    /**
+     * Call the logout path and check than the user is redirected on the login page.
+     */
     public function testLogout(): void
     {
         $testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'admin']);
@@ -46,6 +63,9 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorTextContains('button', 'Se connecter');
     }
 
+    /**
+     * Check some connectionless paths and verify that all are correct.
+     */
     public function testAccessWithoutLogin(){
         $this->client->request('GET', '/');
         $this->client->followRedirect();
