@@ -1,0 +1,37 @@
+image: jakzal/phpqa:php7.4
+
+before_script:
+  - composer install
+
+cache:
+  paths:
+    - vendor/
+
+stages:
+  - securityChecker
+  - CodingStandards
+  - UnitTests
+
+security-checker:
+  stage: securityChecker
+  script:
+    - local-php-security-checker  --path=./composer.lock
+  allow_failure: false
+
+phpcs:
+  stage: CodingStandards
+  script:
+    - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+  allow_failure: false
+
+phpstan:
+  stage: CodingStandards
+  script:
+    - phpstan analyse ./src
+  allow_failure: false
+
+phpunit:
+  stage: UnitTests
+  script:
+    - php bin/phpunit
+  allow_failure: false
