@@ -9,6 +9,7 @@ use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -82,16 +83,23 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      */
-    public function toggle(Task $task, EntityManagerInterface $entityManager)
+    public function toggle(Task $task, EntityManagerInterface $entityManager, Request $request)
     {
         $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
 
+        if($task->getIsDone() === false){
+            $message = 'La tâche %s a bien été marquée comme faite.';
+        }
+        else
+        {
+            $message = 'La tâche %s a bien été marquée comme non faite.';
+        }
+
         $task->setIsDone(!$task->getIsDone());
         $entityManager->flush();
+        $this->addFlash('success', sprintf($message, $task->getTitle()));
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
-
-        return $this->redirectToRoute('task_list');
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     /**
