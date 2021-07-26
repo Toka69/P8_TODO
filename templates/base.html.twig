@@ -22,7 +22,7 @@
         {% include "shared/_navbar.html.twig"  %}
 
         <div class="container">
-            <div class="d-grid gap-2 mx-auto d-md-flex justify-content-md-between">
+            <div class="d-grid gap-2 mx-auto d-md-flex justify-content-md-between mb-2">
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
                         <a href="{{ path('user_list') }}" class="btn btn-dark">Liste des utilisateurs</a>
