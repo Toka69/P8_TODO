@@ -28,8 +28,11 @@ class UserController extends AbstractController
      * @Route("/users/create", name="user_create")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
-    {
+    public function create(
+        EntityManagerInterface $em,
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -58,9 +61,17 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->denyAccessUnlessGranted('EDIT', $user, "You are not this user and you are not authorized to edit it.");
+    public function edit(
+        User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
+        $this->denyAccessUnlessGranted(
+            'EDIT',
+            $user,
+            "You are not this user and you are not authorized to edit it."
+        );
 
         $form = $this->createForm(UserType::class, $user);
 

@@ -30,7 +30,11 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
 
-        if ($user instanceof UserInterface && ($user->getUserIdentifier() === $subject->getUserIdentifier() or $user->getRoles()[0] === 'ROLE_ADMIN')) {
+        $userIdentifier = $user->getUserIdentifier();
+        $subjectIdentifier = $subject->getUserIdentifier();
+        $userRole = $user->getRoles()[0];
+
+        if ($user instanceof UserInterface && ($userIdentifier === $subjectIdentifier or $userRole === 'ROLE_ADMIN')) {
             return true;
         }
 
