@@ -19,7 +19,7 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $passwordHasher, Security $security): Response
     {
-        if ($security->isGranted("IS_AUTHENTICATED_FULLY")){
+        if ($security->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute("homepage");
         }
 

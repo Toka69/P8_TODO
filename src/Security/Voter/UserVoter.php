@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security\Voter;
-
 
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -32,7 +30,7 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
 
-        if ($user instanceof UserInterface && ($user->getUserIdentifier() === $subject->getUserIdentifier() OR $user->getRoles()[0] === 'ROLE_ADMIN')){
+        if ($user instanceof UserInterface && ($user->getUserIdentifier() === $subject->getUserIdentifier() or $user->getRoles()[0] === 'ROLE_ADMIN')) {
             return true;
         }
 

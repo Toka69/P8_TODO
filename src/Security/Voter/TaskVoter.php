@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security\Voter;
-
 
 use App\Entity\Task;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -32,7 +30,7 @@ class TaskVoter extends Voter
     {
         $user = $token->getUser();
 
-        if ($user instanceof UserInterface && $user === $subject->getUser()){
+        if ($user instanceof UserInterface && $user === $subject->getUser()) {
             return true;
         }
 

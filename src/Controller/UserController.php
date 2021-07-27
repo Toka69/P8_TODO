@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -30,15 +28,14 @@ class UserController extends AbstractController
      * @Route("/users/create", name="user_create")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher) : Response
+    public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordHasher->hashPassword(

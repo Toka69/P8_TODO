@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Task;
 use App\Form\TaskType;
@@ -87,11 +85,9 @@ class TaskController extends AbstractController
     {
         $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
 
-        if($task->getIsDone() === false){
+        if ($task->getIsDone() === false) {
             $message = 'La tâche %s a bien été marquée comme faite.';
-        }
-        else
-        {
+        } else {
             $message = 'La tâche %s a bien été marquée comme non faite.';
         }
 
@@ -101,8 +97,7 @@ class TaskController extends AbstractController
 
         $referer = $request->headers->get('referer');
 
-        if ($referer !== null)
-        {
+        if ($referer !== null) {
             return new RedirectResponse($referer);
         }
 
