@@ -32,7 +32,7 @@ phpstan:
 
 phpunit:
   image: php:7.4
-  stage: Tests
+  stage: UnitTests
   services:
     - name: mariadb:10.4.17
       alias: mariadb
