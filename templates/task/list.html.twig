@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
-
 {% block body %}
     <div class="d-flex justify-content-end">
         <a href="{{ path('task_create') }}" class="btn btn-info">Créer une tâche</a>
     </div>
     <div class="row">
         {% for task in tasks %}
-            <div class="col-sm-4 col-lg-4 col-md-4">
-                <div class="thumbnail border">
+            <div class="col-sm-4 col-lg-4 col-md-4 mt-2">
+                <div class="thumbnail border rounded p-2">
                     <div class="caption">
                         <h4 class="float-end">
                             {% if task.isDone %}<span class="bi bi-check-lg"></span>{% else %}<i class="bi bi-x-lg"></i>{% endif %}
@@ -18,14 +16,10 @@
                         <p>{{ task.content }}</p>
                     </div>
                     <div>
-                        <form action="{{ path('task_toggle', {'id' : task.id }) }}">
-                            <button class="btn btn-success btn-sm pull-right">
-                                {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                            </button>
-                        </form>
-                        <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                            <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
-                        </form>
+                        <a href="{{ path('task_toggle', {'id' : task.id }) }}" class="btn btn-success btn-sm pull-right">
+                            {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
+                        </a>
+                        <a href="{{ path('task_delete', {'id' : task.id }) }}" class="btn btn-danger btn-sm pull-right">Supprimer</a>
                     </div>
                 </div>
             </div>
