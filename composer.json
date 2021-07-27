@@ -75,6 +75,7 @@
         "dbrekelmans/bdi": "^0.3.0",
         "phpunit/phpunit": "^9.5",
         "sebastian/phpcpd": "^6.0",
+        "squizlabs/php_codesniffer": "^3.6",
         "symfony/browser-kit": "^5.3",
         "symfony/css-selector": "^5.3",
         "symfony/panther": "^1.1",
