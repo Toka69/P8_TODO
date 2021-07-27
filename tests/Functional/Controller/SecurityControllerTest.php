@@ -66,7 +66,8 @@ class SecurityControllerTest extends WebTestCase
     /**
      * Check some connectionless paths and verify that all are correct.
      */
-    public function testAccessWithoutLogin(){
+    public function testAccessWithoutLogin()
+    {
         $this->client->request('GET', '/');
         $this->client->followRedirect();
         $this->assertRouteSame('security_login');
