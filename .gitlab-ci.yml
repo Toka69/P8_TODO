@@ -21,7 +21,7 @@ security-checker:
 phpcs:
   stage: CodingStandards
   script:
-    - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src
+    - phpcs -v --standard=PSR12 --ignore=./src/Kernel.php ./src ./tests
   allow_failure: false
 
 phpstan:
