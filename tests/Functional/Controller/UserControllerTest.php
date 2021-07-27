@@ -133,6 +133,10 @@ class UserControllerTest extends WebTestCase
         $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
-        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
+        $this->assertRouteSame(
+            $this->client->getRequest()->attributes->get('_route'),
+            [],
+            'This is not the expected route'
+        );
     }
 }

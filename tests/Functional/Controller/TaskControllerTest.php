@@ -147,7 +147,13 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassIsDone(): void
     {
-        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => false]);
+        $task = $this->entityManager->getRepository(Task::class)
+            ->findOneBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => false
+                ]
+            );
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/toggle');
 
@@ -161,7 +167,13 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassToDo(): void
     {
-        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => true]);
+        $task = $this->entityManager->getRepository(Task::class)
+            ->findOneBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => true
+                ]
+            );
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/toggle');
 
@@ -192,7 +204,11 @@ class TaskControllerTest extends WebTestCase
         $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
-        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
+        $this->assertRouteSame(
+            $this->client->getRequest()->attributes->get('_route'),
+            [],
+            'This is not the expected route'
+        );
     }
 
     /**
@@ -202,7 +218,14 @@ class TaskControllerTest extends WebTestCase
      */
     public function displayedTasksAreCompliant($uri, $isDone)
     {
-        $tasks = $this->entityManager->getRepository(Task::class)->findBy(['user' => $this->testUser, 'isDone' => $isDone]);
+        $tasks = $this->entityManager->getRepository(Task::class)
+            ->findBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => $isDone
+                ]
+            );
+
         $tasksId = [];
         foreach ($tasks as $task) {
             array_push($tasksId, $task->getId());
