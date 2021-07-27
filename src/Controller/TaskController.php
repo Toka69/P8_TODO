@@ -99,7 +99,14 @@ class TaskController extends AbstractController
         $entityManager->flush();
         $this->addFlash('success', sprintf($message, $task->getTitle()));
 
-        return new RedirectResponse($request->headers->get('referer'));
+        $referer = $request->headers->get('referer');
+
+        if ($referer !== null)
+        {
+            return new RedirectResponse($referer);
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**
