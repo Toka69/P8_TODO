@@ -30,18 +30,18 @@ phpstan:
     - phpstan analyse ./src
   allow_failure: false
 
-phpunit:
-  stage: UnitTests
-  script:
-    - php bin/console --env=test doctrine:database:create
-    - php bin/console --env=test doctrine:schema:create
-    - php bin/console --no-interaction --env=test doctrine:fixtures:load
-    - php bin/phpunit
-  allow_failure: false
-
-services:
-  - mariadb:latest
-
-variables:
-  MYSQL_DATABASE: P8_SF53
-  MYSQL_ROOT_PASSWORD: admin
+#phpunit:
+#  stage: UnitTests
+#  script:
+#    - php bin/console --env=test doctrine:database:create
+#    - php bin/console --env=test doctrine:schema:create
+#    - php bin/console --no-interaction --env=test doctrine:fixtures:load
+#    - php bin/phpunit
+#  allow_failure: false
+#
+#services:
+#  - mariadb:latest
+#
+#variables:
+#  MYSQL_DATABASE: P8_SF53
+#  MYSQL_ROOT_PASSWORD: admin
