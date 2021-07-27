@@ -89,7 +89,10 @@ class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
-            return $this->redirectToRoute('user_list');
+            if ($user->getRoles() === ["ROLE_ADMIN"]) {
+                return $this->redirectToRoute('user_list');
+            }
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
