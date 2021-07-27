@@ -41,7 +41,7 @@ phpunit:
     MARIADB_ROOT_PASSWORD: dbtest
     MARIADB_USER: dbtest
     MARIADB_PASSWORD: dbtest
-    DATABASE_URL: "mysql://root:dbtest@mariadb/dbtest?serverVersion=mariadb-10.4.17"
+    DATABASE_URL: "mysql://root:dbtest@mariadb:3306/dbtest?serverVersion=mariadb-10.4.17"
   before_script:
     - apt update && apt install -y git libzip-dev
     - curl -sSk https://getcomposer.org/installer | php -- -- disable-tls && mv composer.phar /usr/local/bin/composer
