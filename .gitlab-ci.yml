@@ -46,7 +46,7 @@ phpunit:
     - apt update && apt install -y git libzip-dev
     - curl -sSk https://getcomposer.org/installer | php -- -- disable-tls && mv composer.phar /usr/local/bin/composer
     - docker-php-ext-install mysqli pdo pdo_mysql zip
-    - php bin/console --force --env=test doctrine:database:drop
+    - php bin/console --if-exists --force --env=test doctrine:database:drop
     - php bin/console --env=test doctrine:database:create
     - php bin/console --env=test doctrine:schema:create
     - php bin/console --no-interaction --env=test doctrine:fixtures:load
