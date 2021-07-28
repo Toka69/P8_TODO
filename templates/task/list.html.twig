@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block header_img %}<img class="w-100 h-auto" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+
 {% block body %}
     <div class="d-flex justify-content-end">
         <a href="{{ path('task_create') }}" class="btn btn-info">Créer une tâche</a>
