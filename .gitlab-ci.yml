@@ -30,6 +30,24 @@ phpstan:
     - phpstan analyse ./src
   allow_failure: false
 
+phpmd:
+  stage: CodingStandards
+  script:
+    - phpmd src text codesize,unusedcode,naming
+  allow_failure: false
+
+phpmetrics:
+  stage: CodingStandards
+  script:
+    - phpmetrics --report-html=myreport.html myreport src
+  allow_failure: false
+
+twigcs:
+  stage: CodingStandards
+  script:
+    - twigcs templates
+  allow_failure: false
+
 phpunit:
   image: php:7.4
   stage: UnitTests
