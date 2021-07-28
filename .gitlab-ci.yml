@@ -33,7 +33,7 @@ phpstan:
 phpmd:
   stage: CodingStandards
   script:
-    - phpmd src text codesize,unusedcode,naming
+    - phpmd src text codesize,design,phpmd/naming.xml
   allow_failure: false
 
 phpmetrics:
