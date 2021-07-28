@@ -20,3 +20,4 @@
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+/phpmd.html

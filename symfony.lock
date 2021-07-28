@@ -8,6 +8,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
+    "composer/xdebug-handler": {
+        "version": "2.0.1"
+    },
     "dbrekelmans/bdi": {
         "version": "0.3"
     },
@@ -109,6 +112,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsoftwig/twigcs": {
+        "version": "v5.0.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.0"
     },
@@ -117,6 +123,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.11.0"
+    },
+    "pdepend/pdepend": {
+        "version": "2.10.0"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -135,6 +144,12 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
+    },
+    "phpmd/phpmd": {
+        "version": "2.10.2"
+    },
+    "phpmetrics/phpmetrics": {
+        "version": "v2.7.4"
     },
     "phpspec/prophecy": {
         "version": "1.13.0"

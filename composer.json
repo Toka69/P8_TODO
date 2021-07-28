@@ -73,6 +73,9 @@
     "require-dev": {
         "blackfire/php-sdk": "^1.26",
         "dbrekelmans/bdi": "^0.3.0",
+        "friendsoftwig/twigcs": "^5.0",
+        "phpmd/phpmd": "^2.10",
+        "phpmetrics/phpmetrics": "^2.7",
         "phpunit/phpunit": "^9.5",
         "sebastian/phpcpd": "^6.0",
         "squizlabs/php_codesniffer": "^3.6",
