@@ -154,6 +154,9 @@
     "phpspec/prophecy": {
         "version": "1.13.0"
     },
+    "phpstan/phpstan": {
+        "version": "0.12.93"
+    },
     "phpunit/php-code-coverage": {
         "version": "9.2.6"
     },
