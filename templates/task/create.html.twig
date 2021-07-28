@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-        {{ form_start(form, {'action' : path('task_create')}) }}
+        {{ form_start(form, {'action': path('task_create')}) }}
         {{ form_widget(form) }}
         <div class="d-flex justify-content-between">
                 <a href="{{ path('task_list') }}" class="btn btn-primary">Retour à la liste des tâches</a>

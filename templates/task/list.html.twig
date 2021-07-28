@@ -12,14 +12,14 @@
                         <h4 class="float-end">
                             {% if task.isDone %}<span class="bi bi-check-lg"></span>{% else %}<i class="bi bi-x-lg"></i>{% endif %}
                         </h4>
-                        <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
+                        <h4><a href="{{ path('task_edit', {'id': task.id}) }}">{{ task.title }}</a></h4>
                         <p>{{ task.content }}</p>
                     </div>
                     <div>
-                        <a href="{{ path('task_toggle', {'id' : task.id }) }}" class="btn btn-success btn-sm pull-right">
+                        <a href="{{ path('task_toggle', {'id': task.id}) }}" class="btn btn-success btn-sm pull-right">
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
                         </a>
-                        <a href="{{ path('task_delete', {'id' : task.id }) }}" class="btn btn-danger btn-sm pull-right">Supprimer</a>
+                        <a href="{{ path('task_delete', {'id': task.id}) }}" class="btn btn-danger btn-sm pull-right">Supprimer</a>
                     </div>
                 </div>
             </div>
