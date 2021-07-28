@@ -2,6 +2,13 @@
 
 {% block header_img %}<img class="w-100 h-auto" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
 
+{% block stylesheets %}
+    <link href="{{ asset('vendor/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/css/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/css/shop-homepage.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
     <div class="d-flex justify-content-end">
         <a href="{{ path('task_create') }}" class="btn btn-info">Créer une tâche</a>
