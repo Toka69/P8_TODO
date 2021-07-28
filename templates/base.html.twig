@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="The best way to do your tasks">
+        <meta name="author" content="Matthias LEROUX">
 
         <title>To Do List app</title>
 
@@ -19,7 +19,10 @@
     </head>
 
     <body>
-        {% include "shared/_navbar.html.twig" %}
+        <header>
+            {% include "shared/_navbar.html.twig" %}
+        </header>
+
 
         <div class="container">
             <div class="d-grid gap-2 mx-auto d-md-flex justify-content-md-between mb-2">
@@ -61,7 +64,12 @@
             </div>
         </div>
 
-        {% include "shared/_footer.html.twig" %}
+        <div class="container">
+            <hr>
+            <footer>
+                {% include "shared/_footer.html.twig" %}
+            </footer>
+        </div>
 
         {% block javascripts %}
             <script src="{{ asset('vendor/js/bootstrap.bundle.min.js') }}"></script>
