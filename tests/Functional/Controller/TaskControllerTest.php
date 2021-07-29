@@ -78,7 +78,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->goPage('/', 'Créer une nouvelle tâche');
 
-        $this->client->submitForm('Ajouter',[
+        $this->client->submitForm('Ajouter', [
             'task[title]' => 'test 100',
             'task[content]' => 'Un contenu de test'
         ]);
@@ -95,7 +95,7 @@ class TaskControllerTest extends WebTestCase
     {
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
 
-        $this->client->request('GET', '/tasks/'.$task->getId().'/edit');
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/edit');
 
         $this->client->submitForm('Modifier', [
             'task[title]' => 'Une tâche à éditer',
@@ -114,7 +114,7 @@ class TaskControllerTest extends WebTestCase
     {
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
 
-        $this->client->request('GET', '/tasks/'.$task->getId().'/delete');
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
@@ -134,7 +134,7 @@ class TaskControllerTest extends WebTestCase
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
         $this->client->loginUser($this->testUser);
 
-        $this->client->request('GET', '/tasks/'.$task->getId().'/delete');
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
 //        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 //        $this->assertEquals(true, $test, 'The task has been deleted by another user.');
@@ -147,9 +147,15 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassIsDone(): void
     {
-        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => false]);
+        $task = $this->entityManager->getRepository(Task::class)
+            ->findOneBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => false
+                ]
+            );
 
-        $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/toggle');
 
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
@@ -161,9 +167,15 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassToDo(): void
     {
-        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser, 'isDone' => true]);
+        $task = $this->entityManager->getRepository(Task::class)
+            ->findOneBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => true
+                ]
+            );
 
-        $this->client->request('GET', '/tasks/'.$task->getId().'/toggle');
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/toggle');
 
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
@@ -192,7 +204,11 @@ class TaskControllerTest extends WebTestCase
         $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
-        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
+        $this->assertRouteSame(
+            $this->client->getRequest()->attributes->get('_route'),
+            [],
+            'This is not the expected route'
+        );
     }
 
     /**
@@ -202,10 +218,16 @@ class TaskControllerTest extends WebTestCase
      */
     public function displayedTasksAreCompliant($uri, $isDone)
     {
-        $tasks = $this->entityManager->getRepository(Task::class)->findBy(['user' => $this->testUser, 'isDone' => $isDone]);
+        $tasks = $this->entityManager->getRepository(Task::class)
+            ->findBy(
+                [
+                'user' => $this->testUser,
+                'isDone' => $isDone
+                ]
+            );
+
         $tasksId = [];
-        foreach ($tasks as $task)
-        {
+        foreach ($tasks as $task) {
             array_push($tasksId, $task->getId());
         }
 
@@ -217,29 +239,25 @@ class TaskControllerTest extends WebTestCase
 
         $tasksListTest = [];
         $test = false;
-        foreach($nodeValues as $nodeValue)
-        {
+        foreach ($nodeValues as $nodeValue) {
             $result = [];
             $nodeId = strstr(strstr($nodeValue, 'tasks/'), '/edit', true);
-            for($i=0; $i < count($tasksId); $i++){
+            for ($i = 0; $i < count($tasksId); $i++) {
                 $nodeContain = false;
-                if(str_contains($nodeId, $tasksId[$i]))
-                {
+                if (str_contains($nodeId, $tasksId[$i])) {
                     $nodeContain = true;
                 }
                 array_push($result, $nodeContain);
             }
 
             $arrayContain = false;
-            if (in_array(true, $result))
-            {
+            if (in_array(true, $result)) {
                 $arrayContain = true;
             }
             array_push($tasksListTest, $arrayContain);
         }
 
-        if (!in_array(false, $tasksListTest))
-        {
+        if (!in_array(false, $tasksListTest)) {
             $test = true;
         }
 

@@ -17,9 +17,12 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, Security $security): Response
-    {
-        if ($security->isGranted("IS_AUTHENTICATED_FULLY")){
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+        Security $security
+    ): Response {
+        if ($security->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute("homepage");
         }
 

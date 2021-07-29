@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Task;
 use App\Form\TaskType;
@@ -21,7 +19,9 @@ class TaskController extends AbstractController
      */
     public function list(TaskRepository $taskRepository): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false])]);
+        return $this->render('task/list.html.twig', [
+            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false])
+        ]);
     }
 
     /**
@@ -29,7 +29,9 @@ class TaskController extends AbstractController
      */
     public function listIsDone(TaskRepository $taskRepository): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true])]);
+        return $this->render('task/list.html.twig', [
+            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true])
+        ]);
     }
 
     /**
@@ -61,7 +63,11 @@ class TaskController extends AbstractController
      */
     public function edit(Task $task, Request $request, EntityManagerInterface $entityManager)
     {
-        $this->denyAccessUnlessGranted('EDIT', $task, "You are not the owner of this task and you are not authorized to edit it.");
+        $this->denyAccessUnlessGranted(
+            'EDIT',
+            $task,
+            "You are not the owner of this task and you are not authorized to edit it."
+        );
 
         $form = $this->createForm(TaskType::class, $task);
 
@@ -85,13 +91,15 @@ class TaskController extends AbstractController
      */
     public function toggle(Task $task, EntityManagerInterface $entityManager, Request $request): RedirectResponse
     {
-        $this->denyAccessUnlessGranted('TOGGLE', $task, "You are not the owner of this task and you are not authorized to toggle it.");
+        $this->denyAccessUnlessGranted(
+            'TOGGLE',
+            $task,
+            "You are not the owner of this task and you are not authorized to toggle it."
+        );
 
-        if($task->getIsDone() === false){
+        if ($task->getIsDone() === false) {
             $message = 'La tâche %s a bien été marquée comme faite.';
-        }
-        else
-        {
+        } else {
             $message = 'La tâche %s a bien été marquée comme non faite.';
         }
 
@@ -101,8 +109,7 @@ class TaskController extends AbstractController
 
         $referer = $request->headers->get('referer');
 
-        if ($referer !== null)
-        {
+        if ($referer !== null) {
             return new RedirectResponse($referer);
         }
 
@@ -114,7 +121,11 @@ class TaskController extends AbstractController
      */
     public function delete(Task $task, EntityManagerInterface $entityManager): RedirectResponse
     {
-        $this->denyAccessUnlessGranted('DELETE', $task, "You are not the owner of this task and you are not authorized to delete it.");
+        $this->denyAccessUnlessGranted(
+            'DELETE',
+            $task,
+            "You are not the owner of this task and you are not authorized to delete it."
+        );
 
         $entityManager->remove($task);
         $entityManager->flush();

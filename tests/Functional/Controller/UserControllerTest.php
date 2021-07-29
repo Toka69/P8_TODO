@@ -40,20 +40,22 @@ class UserControllerTest extends WebTestCase
     /**
      * Test if ROLE_ADMIN can access to user part.
      */
-    public function testSecurityRoleAdmin(){
+    public function testSecurityRoleAdmin()
+    {
         $this->client->request('GET', '/users');
         $this->assertResponseIsSuccessful();
         $this->client->request('GET', '/users/create');
         $this->assertResponseIsSuccessful();
         $otherUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
-        $this->client->request('GET', '/users/'.$otherUser->getId().'/edit');
+        $this->client->request('GET', '/users/' . $otherUser->getId() . '/edit');
         $this->assertResponseIsSuccessful();
     }
 
     /**
      * Test that non allowed user is stopped to access to user part.
      */
-    public function testSecurityRoleUser(){
+    public function testSecurityRoleUser()
+    {
         $this->connectWithUser('user');
 
         $this->client->request('GET', '/users');
@@ -61,57 +63,60 @@ class UserControllerTest extends WebTestCase
         $this->client->request('GET', '/users/create');
         $this->assertResponseStatusCodeSame('403');
         $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
-        $this->client->request('GET', '/users/'.$otherUserRoleUser->getId().'/edit');
+        $this->client->request('GET', '/users/' . $otherUserRoleUser->getId() . '/edit');
         $this->assertResponseStatusCodeSame('403');
     }
 
     /**
      * Create a new user from the homepage
      */
-    public function testCreate(){
+    public function testCreate()
+    {
         $this->goPage('/', 'Créer un utilisateur');
 
-        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id'=>'DESC'],1,0);
-        $i = $lastUser->getId()+1;
-        $this->client->submitForm('Ajouter',[
-            'user[username]' => 'user'.$i,
+        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id' => 'DESC'], 1, 0);
+        $i = $lastUser->getId() + 1;
+        $this->client->submitForm('Ajouter', [
+            'user[username]' => 'user' . $i,
             'user[plainPassword][first]' => 'test',
             'user[plainPassword][second]' => 'test',
-            'user[email]' => 'user'.$i.'@test.com'
+            'user[email]' => 'user' . $i . '@test.com'
         ]);
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'user'.$i.'@test.com']);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'user' . $i . '@test.com']);
 
-        $this->assertEquals('user'.$i, $user->getUsername(), 'The user hasn\'t been created in the database');
+        $this->assertEquals('user' . $i, $user->getUsername(), 'The user hasn\'t been created in the database');
     }
 
     /**
      * Edit a user
      */
-    public function testEdit(){
-        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id'=>'DESC'],1,0);
+    public function testEdit()
+    {
+        $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id' => 'DESC'], 1, 0);
 
-        $this->client->request('GET', '/users/'.$lastUser->getId().'/edit');
+        $this->client->request('GET', '/users/' . $lastUser->getId() . '/edit');
 
-        $i = $lastUser->getId()+1;
+        $i = $lastUser->getId() + 1;
 
-        $this->client->submitForm('Modifier',[
-            'user[username]' => 'bob'.$i,
+        $this->client->submitForm('Modifier', [
+            'user[username]' => 'bob' . $i,
             'user[plainPassword][first]' => 'test',
             'user[plainPassword][second]' => 'test',
-            'user[email]' => 'bob'.$i.'@test.com'
+            'user[email]' => 'bob' . $i . '@test.com'
         ]);
 
         $test = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $lastUser->getId()]);
 
-        $this->assertEquals('bob'.$i, $test->getUsername());
+        $this->assertEquals('bob' . $i, $test->getUsername());
     }
 
     /**
      * @param $user
      * Connect easily with the user of your choice.
      */
-    public function connectWithUser($user){
+    public function connectWithUser($user)
+    {
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $user]);
         $this->client->loginUser($this->testUser);
     }
@@ -128,6 +133,10 @@ class UserControllerTest extends WebTestCase
         $this->client->click($link);
 
         $this->assertResponseIsSuccessful();
-        $this->assertRouteSame($this->client->getRequest()->attributes->get('_route'), [], 'This is not the expected route');
+        $this->assertRouteSame(
+            $this->client->getRequest()->attributes->get('_route'),
+            [],
+            'This is not the expected route'
+        );
     }
 }

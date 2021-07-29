@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block header_img %}<img class="w-100 h-auto" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+
+{% block stylesheets %}
+        <link href="{{ asset('vendor/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/css/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/css/shop-homepage.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-        {{ form_start(form, {'action' : path('task_create')}) }}
+        {{ form_start(form, {'action': path('task_create')}) }}
         {{ form_widget(form) }}
         <div class="d-flex justify-content-between">
                 <a href="{{ path('task_list') }}" class="btn btn-primary">Retour à la liste des tâches</a>

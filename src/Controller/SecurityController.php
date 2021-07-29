@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, Security $security): Response
     {
-        if ($security->isGranted("IS_AUTHENTICATED_FULLY")){
+        if ($security->isGranted("IS_AUTHENTICATED_FULLY")) {
             return $this->redirectToRoute("homepage");
         }
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -34,7 +34,9 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException(
+            'This method can be blank - it will be intercepted by the logout key on your firewall.'
+        );
     }
 
     /**

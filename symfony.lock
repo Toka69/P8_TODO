@@ -8,6 +8,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.2"
     },
+    "composer/xdebug-handler": {
+        "version": "2.0.1"
+    },
     "dbrekelmans/bdi": {
         "version": "0.3"
     },
@@ -109,6 +112,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "friendsoftwig/twigcs": {
+        "version": "v5.0.0"
+    },
     "laminas/laminas-code": {
         "version": "4.4.0"
     },
@@ -117,6 +123,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.11.0"
+    },
+    "pdepend/pdepend": {
+        "version": "2.10.0"
     },
     "phar-io/manifest": {
         "version": "2.0.3"
@@ -136,8 +145,17 @@
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
     },
+    "phpmd/phpmd": {
+        "version": "2.10.2"
+    },
+    "phpmetrics/phpmetrics": {
+        "version": "v2.7.4"
+    },
     "phpspec/prophecy": {
         "version": "1.13.0"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.93"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.6"
@@ -216,6 +234,9 @@
     "sebastian/object-reflector": {
         "version": "2.0.4"
     },
+    "sebastian/phpcpd": {
+        "version": "6.0.3"
+    },
     "sebastian/recursion-context": {
         "version": "4.0.4"
     },
@@ -238,6 +259,18 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "symfony/asset": {

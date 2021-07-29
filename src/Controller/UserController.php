@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\User;
 use App\Form\UserType;
@@ -30,15 +28,17 @@ class UserController extends AbstractController
      * @Route("/users/create", name="user_create")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $passwordHasher) : Response
-    {
+    public function create(
+        EntityManagerInterface $em,
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(["ROLE_USER"]);
             $user->setPassword(
                 $passwordHasher->hashPassword(
@@ -61,9 +61,17 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->denyAccessUnlessGranted('EDIT', $user, "You are not this user and you are not authorized to edit it.");
+    public function edit(
+        User $user,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
+        $this->denyAccessUnlessGranted(
+            'EDIT',
+            $user,
+            "You are not this user and you are not authorized to edit it."
+        );
 
         $form = $this->createForm(UserType::class, $user);
 
@@ -81,7 +89,10 @@ class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
-            return $this->redirectToRoute('user_list');
+            if ($user->getRoles() === ["ROLE_ADMIN"]) {
+                return $this->redirectToRoute('user_list');
+            }
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
