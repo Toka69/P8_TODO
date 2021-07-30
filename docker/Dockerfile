@@ -15,6 +15,7 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash && \
 
 #Configure PHP date.timezone
 COPY conf/phpTimeZone.ini /usr/local/etc/php/conf.d/phpTimeZone.ini
+COPY conf/phpSymfony.ini /usr/local/etc/php/conf.d/phpSymfony.ini
 COPY conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 #Install Blackfire
