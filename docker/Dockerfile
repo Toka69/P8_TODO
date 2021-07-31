@@ -3,7 +3,7 @@ FROM php:7.4-apache
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 #PHP extensions
-RUN install-php-extensions mysqli pdo_mysql intl opcache memcached zip @composer
+RUN install-php-extensions mysqli pdo_mysql intl opcache zip @composer
 
 #Install GIT and ZIP
 RUN apt update -y && \
@@ -17,6 +17,7 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash && \
 COPY conf/phpTimeZone.ini /usr/local/etc/php/conf.d/phpTimeZone.ini
 COPY conf/phpSymfony.ini /usr/local/etc/php/conf.d/phpSymfony.ini
 COPY conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY conf/docker-entrypoint.sh /docker-entrypoint.sh
 
 #Install Blackfire
 RUN apt install gnupg2 -y && \
@@ -33,4 +34,9 @@ RUN composer require --dev phpstan/phpstan && \
     composer require --dev friendsoftwig/twigcs && \
     composer require --dev icanhazstring/composer-unused
 
+RUN apt install redis-server -y
+
 WORKDIR /var/www/html/
+
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
