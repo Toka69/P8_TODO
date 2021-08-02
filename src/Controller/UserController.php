@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -19,9 +20,15 @@ class UserController extends AbstractController
      * @Route("/users", name="user_list")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function list(UserRepository $userRepository): Response
+    public function list(UserRepository $userRepository, AdapterInterface $cache): Response
     {
-        return $this->render('user/list.html.twig', ['users' => $userRepository->findAll()]);
+        $users = $cache->getItem('users');
+        if(!$users->isHit())
+        {
+            $users->set($userRepository->findAll());
+            $cache->save($users);
+        }
+        return $this->render('user/list.html.twig', ['users' => $cache->getItem('users')->get()]);
     }
 
     /**

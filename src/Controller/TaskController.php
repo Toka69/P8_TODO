@@ -7,6 +7,7 @@ use App\Form\TaskType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,20 +18,34 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function list(TaskRepository $taskRepository): Response
+    public function list(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
+        $tasksNotDone = $cache->getItem('tasksNotDone');
+        if(!$tasksNotDone->isHit())
+        {
+            $tasksNotDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false]));
+            $cache->save($tasksNotDone);
+        }
+
         return $this->render('task/list.html.twig', [
-            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false])
+            'tasks' => $cache->getItem('tasksNotDone')->get()
         ]);
     }
 
     /**
      * @Route("/tasks/done", name="task_done")
      */
-    public function listIsDone(TaskRepository $taskRepository): Response
+    public function listIsDone(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
+        $tasksIsDone = $cache->getItem('tasksIsDone');
+        if(!$tasksIsDone->isHit())
+        {
+            $tasksIsDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true]));
+            $cache->save($tasksIsDone);
+        }
+
         return $this->render('task/list.html.twig', [
-            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true])
+            'tasks' => $cache->getItem('tasksIsDone')->get()
         ]);
     }
 
