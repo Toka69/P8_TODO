@@ -61,9 +61,10 @@ phpunit:
     MYSQL_PASSWORD: dbtest
     DATABASE_URL: "mysql://root:dbtest@mariadb:3306/dbtest?serverVersion=mariadb-10.4.17"
   before_script:
-    - apt update && apt install -y git libzip-dev
+    - apt update && apt install -y git libzip-dev redis-server
     - curl -sSk https://getcomposer.org/installer | php -- -- disable-tls && mv composer.phar /usr/local/bin/composer
     - docker-php-ext-install mysqli pdo pdo_mysql zip
+    - docker-php-ext-enable redis
     - php bin/console --if-exists --force --env=test doctrine:database:drop
     - php bin/console --env=test doctrine:database:create
     - php bin/console --env=test doctrine:schema:create
