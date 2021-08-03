@@ -17,3 +17,13 @@ framework:
         # Namespaced pools use the above "app" backend by default
         #pools:
             #my.dedicated.cache: null
+
+        pools:
+            doctrine.metadata_cache_pool:
+                adapter: cache.adapter.redis
+
+            doctrine.query_cache_pool:
+                adapter: cache.adapter.redis
+
+            doctrine.result_cache_pool:
+                adapter: cache.adapter.redis

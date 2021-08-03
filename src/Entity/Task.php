@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
+ * @ORM\Cache(usage = "NONSTRICT_READ_WRITE")
  */
 class Task
 {
