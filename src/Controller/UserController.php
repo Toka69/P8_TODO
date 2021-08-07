@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Handler\UserCreateHandler;
+use App\HandlerFactory\HandlerFactoryInterface;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -38,30 +40,19 @@ class UserController extends AbstractController
     public function create(
         EntityManagerInterface $em,
         Request $request,
-        UserPasswordHasherInterface $passwordHasher
+        HandlerFactoryInterface $handlerFactory
+
     ): Response {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
 
-        $form->handleRequest($request);
+        $handler = $handlerFactory->createHandler(UserCreateHandler::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_USER"]);
-            $user->setPassword(
-                $passwordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $em->persist($user);
-            $em->flush();
-            $this->addFlash('success', 'L\'utilisateur a été créé');
-
+        if($handler->handle($request, $user)) {
             return $this->redirectToRoute('user_list');
         }
 
         return $this->render('user/create.html.twig', [
-            'formView' => $form->createView()
+            'formView' => $handler->createView()
         ]);
     }
 

@@ -22,7 +22,6 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Tapez le mot de passe à nouveau'),
-                'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password']
             ])
             ->add('email', EmailType::class, [
