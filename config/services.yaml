@@ -32,3 +32,8 @@ services:
     App\EventListener\LoginListener:
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    App\Handler\:
+        resource: '../src/Handler/'
+        shared: false
+        tags: [ 'app.handler' ]
