@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-use App\Form\TaskType;
 use App\Handler\CreateTaskHandler;
+use App\Handler\EditTaskHandler;
 use App\HandlerFactory\HandlerFactoryInterface;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,7 +70,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function edit(Task $task, Request $request, EntityManagerInterface $entityManager)
+    public function edit(Task $task, Request $request, HandlerFactoryInterface $handlerFactory)
     {
         $this->denyAccessUnlessGranted(
             'EDIT',
@@ -78,19 +78,13 @@ class TaskController extends AbstractController
             "You are not the owner of this task and you are not authorized to edit it."
         );
 
-        $form = $this->createForm(TaskType::class, $task);
+        $handler = $handlerFactory->createHandler(EditTaskHandler::class);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
-
-            return $this->redirectToRoute('task_list');
-        }
+        if ($handler->handle($request, $task)) {
+            return $this->redirectToRoute('task_list');        }
 
         return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $handler->createView(),
             'task' => $task,
         ]);
     }
