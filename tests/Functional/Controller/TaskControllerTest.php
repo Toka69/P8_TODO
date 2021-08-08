@@ -136,9 +136,6 @@ class TaskControllerTest extends WebTestCase
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
-//        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
-//        $this->assertEquals(true, $test, 'The task has been deleted by another user.');
-
         $this->assertResponseStatusCodeSame('403');
     }
 
