@@ -17,10 +17,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class EditTaskHandler extends AbstractHandler
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected EntityManagerInterface $entityManager;
 
+    /**
+     * @var UserPasswordHasherInterface
+     */
     protected UserPasswordHasherInterface $passwordHasher;
 
+    /**
+     * @var FlashBagInterface
+     */
     protected FlashBagInterface $flashBag;
 
     /**
@@ -53,9 +62,5 @@ class EditTaskHandler extends AbstractHandler
     protected function configure(OptionsResolver $resolver): void
     {
         $resolver->setDefault("form_type", TaskType::class);
-        $resolver->setDefault("form_options", [
-                "validation_groups" => ["Default", "password"]
-            ]
-        );
     }
 }

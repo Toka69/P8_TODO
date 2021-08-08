@@ -12,14 +12,33 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Class CreateUserHandler
+ * @package App\Handler
+ */
 class CreateUserHandler extends AbstractHandler
 {
+    /**
+     * @var EntityManagerInterface
+     */
     protected $entityManager;
 
+    /**
+     * @var UserPasswordHasherInterface
+     */
     protected $passwordHasher;
 
+    /**
+     * @var FlashBagInterface
+     */
     protected $flashBag;
 
+    /**
+     * CreateUserHandler constructor.
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param EntityManagerInterface $entityManager
+     * @param FlashBagInterface $flashBag
+     */
     public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, FlashBagInterface $flashBag)
     {
         $this->passwordHasher = $passwordHasher;
@@ -27,6 +46,10 @@ class CreateUserHandler extends AbstractHandler
         $this->flashBag = $flashBag;
     }
 
+    /**
+     * @param $data
+     * @param array $options
+     */
     protected function process($data, array $options): void
     {
         $data->setRoles(["ROLE_USER"]);
@@ -41,6 +64,9 @@ class CreateUserHandler extends AbstractHandler
         $this->flashBag->add('success', 'L\'utilisateur a été créé');
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     protected function configure(OptionsResolver $resolver): void
     {
         $resolver->setDefault("form_type", UserType::class);
