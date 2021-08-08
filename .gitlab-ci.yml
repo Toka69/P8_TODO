@@ -15,7 +15,6 @@ stages:
 security-checker:
   stage: securityChecker
   script:
-    - docker-php-ext-enable redis
     - local-php-security-checker  --path=./composer.lock
   allow_failure: false
 
