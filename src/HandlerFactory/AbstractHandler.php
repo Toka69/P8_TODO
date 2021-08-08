@@ -3,18 +3,26 @@
 namespace App\HandlerFactory;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class AbstractHandler
+ * @package App\HandlerFactory
+ */
 abstract class AbstractHandler implements HandlerInterface
 {
     /**
      * @var FormFactoryInterface
      */
-    protected $formFactory;
+    protected FormFactoryInterface $formFactory;
 
-    protected $form;
+    /**
+     * @var FormInterface
+     */
+    protected FormInterface $form;
 
     /**
      * @param FormFactoryInterface $formFactory
@@ -38,6 +46,12 @@ abstract class AbstractHandler implements HandlerInterface
     {
     }
 
+    /**
+     * @param Request $request
+     * @param null $data
+     * @param array $options
+     * @return bool
+     */
     public function handle(Request $request, $data = null, array $options = []): bool
     {
         $resolver = new OptionsResolver();
@@ -62,6 +76,9 @@ abstract class AbstractHandler implements HandlerInterface
         return false;
     }
 
+    /**
+     * @return FormView
+     */
     public function createView(): FormView
     {
         return $this->form->createView();

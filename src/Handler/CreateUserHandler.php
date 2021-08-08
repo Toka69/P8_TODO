@@ -2,7 +2,6 @@
 
 namespace App\Handler;
 
-use App\Form\RegistrationFormType;
 use App\Form\UserType;
 use App\HandlerFactory\AbstractHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,17 +18,17 @@ class CreateUserHandler extends AbstractHandler
     /**
      * @var EntityManagerInterface
      */
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     /**
      * @var UserPasswordHasherInterface
      */
-    protected $passwordHasher;
+    protected UserPasswordHasherInterface $passwordHasher;
 
     /**
      * @var FlashBagInterface
      */
-    protected $flashBag;
+    protected FlashBagInterface $flashBag;
 
     /**
      * CreateUserHandler constructor.
