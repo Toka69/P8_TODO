@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    container.dumper.inline_factories: true
 
 services:
     # default configuration for services in *this* file
@@ -23,3 +24,16 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\EventListener\DatabaseActivitySubscriber:
+        tags:
+            - { name: doctrine.event_listener, event: postFlush}
+
+    App\EventListener\LoginListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    App\Handler\:
+        resource: '../src/Handler/'
+        shared: false
+        tags: [ 'app.handler' ]

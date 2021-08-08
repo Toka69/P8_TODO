@@ -16,3 +16,21 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+
+        metadata_cache_driver:
+            type: pool
+            pool: doctrine.metadata_cache_pool
+
+        query_cache_driver:
+            type: pool
+            pool: doctrine.query_cache_pool
+
+        result_cache_driver:
+            type: pool
+            pool: doctrine.result_cache_pool
+
+        second_level_cache:
+            region_cache_driver:
+                type: pool
+                pool: doctrine.second_level_cache_pool
+            enabled: true

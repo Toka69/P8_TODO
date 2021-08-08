@@ -7,6 +7,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Class TaskFixtures
+ * @package App\DataFixtures
+ */
 class TaskFixtures extends Fixture implements DependentFixtureInterface
 {
 

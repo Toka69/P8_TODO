@@ -1,12 +1,13 @@
 version: "3.8"
 services:
-  webapp_p8_sf53:
+  webapp_p8_sf53_apache:
     build: .
-    container_name: P8_TODO_SF53
+    container_name: P8_TODO_SF53_APACHE
     ports:
-      - '4060:8000'
+      - '4070:80'
+      - '4071:443'
     volumes:
-      - ../:/workspaces/p8_SF53/
+      - ../:/var/www/html/
     command: sleep infinity
 
 networks:

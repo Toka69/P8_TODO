@@ -186,6 +186,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "predis/predis": {
+        "version": "v1.1.7"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -496,6 +499,9 @@
     },
     "symfony/security-http": {
         "version": "v5.3.3"
+    },
+    "symfony/serializer": {
+        "version": "v5.3.4"
     },
     "symfony/service-contracts": {
         "version": "v2.4.0"

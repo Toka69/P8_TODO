@@ -1,9 +1,9 @@
-FROM php:7.4
+FROM php:7.4-apache
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 #PHP extensions
-RUN install-php-extensions mysqli pdo_mysql xdebug intl zip @composer
+RUN install-php-extensions mysqli pdo_mysql intl zip @composer redis
 
 #Install GIT and ZIP
 RUN apt update -y && \
@@ -15,6 +15,9 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash && \
 
 #Configure PHP date.timezone
 COPY conf/phpTimeZone.ini /usr/local/etc/php/conf.d/phpTimeZone.ini
+COPY conf/phpSymfony.ini /usr/local/etc/php/conf.d/phpSymfony.ini
+COPY conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY conf/docker-entrypoint.sh /docker-entrypoint.sh
 
 #Install Blackfire
 RUN apt install gnupg2 -y && \
@@ -22,20 +25,18 @@ RUN apt install gnupg2 -y && \
     echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
     apt update && apt install blackfire blackfire-php -y
 
-#Install Panther
-RUN apt install -y zlib1g-dev chromium
-ENV PANTHER_NO_SANDBOX 1
-RUN composer require symfony/panther --dev && \
-    composer require --dev dbrekelmans/bdi && \
-    vendor/bin/bdi detect drivers
-
 #Install analysis tools
 RUN composer require --dev phpstan/phpstan && \
     composer require --dev squizlabs/php_codesniffer && \
     composer require --dev phpmd/phpmd && \
     composer require --dev sebastian/phpcpd && \
     composer require --dev phpmetrics/phpmetrics && \
-    composer require --dev friendsoftwig/twigcs=3.0 && \
+    composer require --dev friendsoftwig/twigcs && \
     composer require --dev icanhazstring/composer-unused
 
-WORKDIR workspaces/p8_SF53
+RUN apt install redis-server -y
+
+WORKDIR /var/www/html/
+
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]

@@ -8,10 +8,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @ORM\Cache(usage = "NONSTRICT_READ_WRITE")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -43,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
+    /**
+     * @Groups({"password"})
+     */
     private $plainPassword;
 
     public function getId(): ?int

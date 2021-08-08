@@ -3,65 +3,76 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-use App\Form\TaskType;
+use App\Handler\CreateTaskHandler;
+use App\Handler\EditTaskHandler;
+use App\HandlerFactory\HandlerFactoryInterface;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class TaskController
+ * @package App\Controller
+ */
 class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function list(TaskRepository $taskRepository): Response
+    public function list(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
+        $tasksNotDone = $cache->getItem('tasksNotDone');
+        if (!$tasksNotDone->isHit()) {
+            $tasksNotDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false]));
+            $cache->save($tasksNotDone);
+        }
+
         return $this->render('task/list.html.twig', [
-            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false])
+            'tasks' => $cache->getItem('tasksNotDone')->get()
         ]);
     }
 
     /**
      * @Route("/tasks/done", name="task_done")
      */
-    public function listIsDone(TaskRepository $taskRepository): Response
+    public function listIsDone(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
+        $tasksIsDone = $cache->getItem('tasksIsDone');
+        if (!$tasksIsDone->isHit()) {
+            $tasksIsDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true]));
+            $cache->save($tasksIsDone);
+        }
+
         return $this->render('task/list.html.twig', [
-            'tasks' => $taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true])
+            'tasks' => $cache->getItem('tasksIsDone')->get()
         ]);
     }
 
     /**
      * @Route("/tasks/create", name="task_create")
      */
-    public function create(Request $request, EntityManagerInterface $entityManager)
+    public function create(Request $request, HandlerFactoryInterface $handlerFactory)
     {
         $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
 
-        $form->handleRequest($request);
+        $handler = $handlerFactory->createHandler(CreateTaskHandler::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $task->setIsDone(false)
-                ->setUser($this->getUser());
-            $entityManager->persist($task);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
-
+        if ($handler->handle($request, $task)) {
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('task/create.html.twig', ['form' => $handler->createView()]);
     }
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
      */
-    public function edit(Task $task, Request $request, EntityManagerInterface $entityManager)
+    public function edit(Task $task, Request $request, HandlerFactoryInterface $handlerFactory)
     {
         $this->denyAccessUnlessGranted(
             'EDIT',
@@ -69,19 +80,14 @@ class TaskController extends AbstractController
             "You are not the owner of this task and you are not authorized to edit it."
         );
 
-        $form = $this->createForm(TaskType::class, $task);
+        $handler = $handlerFactory->createHandler(EditTaskHandler::class);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
-
+        if ($handler->handle($request, $task)) {
             return $this->redirectToRoute('task_list');
         }
 
         return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $handler->createView(),
             'task' => $task,
         ]);
     }
