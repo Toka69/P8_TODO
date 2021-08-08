@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Handler;
-
 
 use App\Form\RegistrationFormType;
 use App\Form\UserType;
@@ -39,8 +37,11 @@ class CreateUserHandler extends AbstractHandler
      * @param EntityManagerInterface $entityManager
      * @param FlashBagInterface $flashBag
      */
-    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, FlashBagInterface $flashBag)
-    {
+    public function __construct(
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager,
+        FlashBagInterface $flashBag
+    ) {
         $this->passwordHasher = $passwordHasher;
         $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;
@@ -72,7 +73,6 @@ class CreateUserHandler extends AbstractHandler
         $resolver->setDefault("form_type", UserType::class);
         $resolver->setDefault("form_options", [
                 "validation_groups" => ["Default", "password"]
-            ]
-        );
+            ]);
     }
 }

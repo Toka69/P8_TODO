@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\HandlerFactory;
-
 
  use Psr\Container\ContainerInterface;
 
@@ -30,8 +28,8 @@ class HandlerFactory implements HandlerFactoryInterface
      * @param string $handler
      * @return HandlerInterface
      */
-     public function createHandler(string $handler): HandlerInterface
-     {
-         return $this->container->get($handler);
-     }
+    public function createHandler(string $handler): HandlerInterface
+    {
+        return $this->container->get($handler);
+    }
 }

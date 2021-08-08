@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
 
         $user = new User();
 
-        $handler= $handlerFactory->createHandler(RegistrationHandler::class);
+        $handler = $handlerFactory->createHandler(RegistrationHandler::class);
 
         if ($handler->handle($request, $user)) {
             return $this->redirectToRoute("security_login");

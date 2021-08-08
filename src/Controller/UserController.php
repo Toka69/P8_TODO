@@ -26,8 +26,7 @@ class UserController extends AbstractController
     public function list(UserRepository $userRepository, AdapterInterface $cache): Response
     {
         $users = $cache->getItem('users');
-        if(!$users->isHit())
-        {
+        if (!$users->isHit()) {
             $users->set($userRepository->findAll());
             $cache->save($users);
         }
@@ -41,13 +40,12 @@ class UserController extends AbstractController
     public function create(
         Request $request,
         HandlerFactoryInterface $handlerFactory
-
     ): Response {
         $user = new User();
 
         $handler = $handlerFactory->createHandler(CreateUserHandler::class);
 
-        if($handler->handle($request, $user)) {
+        if ($handler->handle($request, $user)) {
             return $this->redirectToRoute('user_list');
         }
 

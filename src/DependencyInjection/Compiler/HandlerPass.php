@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\DependencyInjection\Compiler;
-
 
 use App\HandlerFactory\HandlerFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -28,10 +26,10 @@ class HandlerPass implements CompilerPassInterface
 
         $taggedServices = $container->findTaggedServiceIds("app.handler", true);
 
-        foreach (array_keys($taggedServices) as $serviceId){
+        foreach (array_keys($taggedServices) as $serviceId) {
             $serviceMap[$container->getDefinition($serviceId)->getClass()] = new Reference($serviceId);
         }
 
-        $definition->setArgument(0,ServiceLocatorTagPass::register($container, $serviceMap));
+        $definition->setArgument(0, ServiceLocatorTagPass::register($container, $serviceMap));
     }
 }

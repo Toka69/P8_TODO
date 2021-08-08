@@ -23,8 +23,7 @@ class TaskController extends AbstractController
     public function list(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
         $tasksNotDone = $cache->getItem('tasksNotDone');
-        if(!$tasksNotDone->isHit())
-        {
+        if (!$tasksNotDone->isHit()) {
             $tasksNotDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false]));
             $cache->save($tasksNotDone);
         }
@@ -40,8 +39,7 @@ class TaskController extends AbstractController
     public function listIsDone(TaskRepository $taskRepository, AdapterInterface $cache): Response
     {
         $tasksIsDone = $cache->getItem('tasksIsDone');
-        if(!$tasksIsDone->isHit())
-        {
+        if (!$tasksIsDone->isHit()) {
             $tasksIsDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true]));
             $cache->save($tasksIsDone);
         }
@@ -81,7 +79,8 @@ class TaskController extends AbstractController
         $handler = $handlerFactory->createHandler(EditTaskHandler::class);
 
         if ($handler->handle($request, $task)) {
-            return $this->redirectToRoute('task_list');        }
+            return $this->redirectToRoute('task_list');
+        }
 
         return $this->render('task/edit.html.twig', [
             'form' => $handler->createView(),

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\EventListener;
-
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -13,7 +11,8 @@ class DatabaseActivitySubscriber implements EventSubscriber
 {
     protected AdapterInterface $cache;
 
-    public function __construct(AdapterInterface $cache){
+    public function __construct(AdapterInterface $cache)
+    {
         $this->cache = $cache;
     }
 

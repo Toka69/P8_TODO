@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Handler;
-
 
 use App\Form\TaskType;
 use App\HandlerFactory\AbstractHandler;
@@ -44,9 +42,12 @@ class CreateTaskHandler extends AbstractHandler
      * @param Security $security
      * @param FlashBagInterface $flashBag
      */
-    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager,
-                                Security $security, FlashBagInterface $flashBag)
-    {
+    public function __construct(
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager,
+        Security $security,
+        FlashBagInterface $flashBag
+    ) {
         $this->passwordHasher = $passwordHasher;
         $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\HandlerFactory;
-
 
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormView;
@@ -51,10 +49,12 @@ abstract class AbstractHandler implements HandlerInterface
 
         $options = $resolver->resolve($options);
 
-        $this->form = $this->formFactory->create($options["form_type"], $data, $options["form_options"])->handleRequest($request);
+        $this->form = $this->formFactory
+            ->create($options["form_type"], $data, $options["form_options"])
+            ->handleRequest($request)
+        ;
 
-        if ($this->form->isSubmitted() && $this->form->isValid())
-        {
+        if ($this->form->isSubmitted() && $this->form->isValid()) {
             $this->process($data, $options);
             return true;
         }
