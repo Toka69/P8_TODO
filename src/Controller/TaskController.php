@@ -125,7 +125,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
-    public function delete(Task $task, EntityManagerInterface $entityManager): RedirectResponse
+    public function delete(Task $task, EntityManagerInterface $entityManager, Request $request): RedirectResponse
     {
         $this->denyAccessUnlessGranted(
             'DELETE',
@@ -138,6 +138,12 @@ class TaskController extends AbstractController
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
-        return $this->redirectToRoute('task_list');
+        $referer = $request->headers->get('referer');
+
+        if ($referer !== null) {
+            return new RedirectResponse($referer);
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 }
