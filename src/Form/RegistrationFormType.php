@@ -34,7 +34,7 @@ class RegistrationFormType extends AbstractType
                 'first_options' => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Tapez le mot de passe à nouveau'),
                 'invalid_message' => 'Passwords must be the same!',
-                'attr' => ['autocomplete' => 'new-password'],
+                'options' => ['attr' => ['autocomplete' => 'new-password']],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
