@@ -52,12 +52,14 @@ class EditUserHandler extends AbstractHandler
      */
     protected function process($data, array $options): void
     {
-        $data->setPassword(
-            $this->passwordHasher->hashPassword(
-                $data,
-                $data->getPlainPassword()
-            )
-        );
+        if ($data->getPlainPassword() !== null) {
+            $data->setPassword(
+                $this->passwordHasher->hashPassword(
+                    $data,
+                    $data->getPlainPassword()
+                )
+            );
+        }
 
         $this->entityManager->flush();
 
