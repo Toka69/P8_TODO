@@ -3,7 +3,7 @@ FROM php:7.4-apache
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 #PHP extensions
-RUN install-php-extensions mysqli pdo_mysql intl zip @composer redis
+RUN install-php-extensions mysqli pdo_mysql intl zip @composer redis xdebug
 
 #Install GIT and ZIP
 RUN apt update -y && \
