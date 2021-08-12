@@ -216,12 +216,7 @@ class TaskControllerTest extends WebTestCase
     public function displayedTasksAreCompliant($uri, $isDone)
     {
         $tasks = $this->entityManager->getRepository(Task::class)
-            ->findBy(
-                [
-                'user' => $this->testUser,
-                'isDone' => $isDone
-                ]
-            );
+            ->findBy(['isDone' => $isDone]);
 
         $tasksId = [];
         foreach ($tasks as $task) {
