@@ -7,6 +7,7 @@ use App\Handler\CreateTaskHandler;
 use App\Handler\EditTaskHandler;
 use App\HandlerFactory\HandlerFactoryInterface;
 use App\Repository\TaskRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -24,7 +25,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function list(TaskRepository $taskRepository, AdapterInterface $cache): Response
+    public function list(TaskRepository $taskRepository, UserRepository $userRepository, AdapterInterface $cache): Response
     {
         $tasksNotDone = $cache->getItem('tasksNotDone');
         if (!$tasksNotDone->isHit()) {
@@ -33,7 +34,8 @@ class TaskController extends AbstractController
         }
 
         return $this->render('task/list.html.twig', [
-            'tasks' => $cache->getItem('tasksNotDone')->get()
+            'tasks' => $cache->getItem('tasksNotDone')->get(),
+            'users' => $userRepository->findAll()
         ]);
     }
 
