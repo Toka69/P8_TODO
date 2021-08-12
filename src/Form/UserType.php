@@ -50,8 +50,8 @@ class UserType extends AbstractType
         if (current($this->security->getUser()->getRoles()) == "ROLE_ADMIN") {
             $builder->add('roles', ChoiceType::class, array(
                 'choices' => array(
-                    'user' => 'ROLE_USER',
-                    'admin' => 'ROLE_ADMIN'
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN'
                 ),
                 'label' => 'Role :'
             ));
