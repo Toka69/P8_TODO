@@ -74,6 +74,12 @@ class TaskController extends AbstractController
      */
     public function edit(Task $task, Request $request, HandlerFactoryInterface $handlerFactory)
     {
+        $this->denyAccessUnlessGranted(
+            'EDIT',
+            $task,
+            "You are not the owner of this task and you are not authorized to edit it."
+        );
+
         $handler = $handlerFactory->createHandler(EditTaskHandler::class);
 
         if ($handler->handle($request, $task)) {
@@ -91,6 +97,12 @@ class TaskController extends AbstractController
      */
     public function toggle(Task $task, EntityManagerInterface $entityManager, Request $request): RedirectResponse
     {
+        $this->denyAccessUnlessGranted(
+            'TOGGLE',
+            $task,
+            "You are not the owner of this task and you are not authorized to toggle it."
+        );
+
         if ($task->getIsDone() === false) {
             $message = 'La tâche %s a bien été marquée comme faite.';
         } else {
