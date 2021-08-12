@@ -28,7 +28,7 @@ class TaskController extends AbstractController
     {
         $tasksNotDone = $cache->getItem('tasksNotDone');
         if (!$tasksNotDone->isHit()) {
-            $tasksNotDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => false]));
+            $tasksNotDone->set($taskRepository->findBy(['isDone' => false]));
             $cache->save($tasksNotDone);
         }
 
@@ -44,7 +44,7 @@ class TaskController extends AbstractController
     {
         $tasksIsDone = $cache->getItem('tasksIsDone');
         if (!$tasksIsDone->isHit()) {
-            $tasksIsDone->set($taskRepository->findBy(['user' => $this->getUser(), 'isDone' => true]));
+            $tasksIsDone->set($taskRepository->findBy(['isDone' => true]));
             $cache->save($tasksIsDone);
         }
 
@@ -74,12 +74,6 @@ class TaskController extends AbstractController
      */
     public function edit(Task $task, Request $request, HandlerFactoryInterface $handlerFactory)
     {
-        $this->denyAccessUnlessGranted(
-            'EDIT',
-            $task,
-            "You are not the owner of this task and you are not authorized to edit it."
-        );
-
         $handler = $handlerFactory->createHandler(EditTaskHandler::class);
 
         if ($handler->handle($request, $task)) {
@@ -97,12 +91,6 @@ class TaskController extends AbstractController
      */
     public function toggle(Task $task, EntityManagerInterface $entityManager, Request $request): RedirectResponse
     {
-        $this->denyAccessUnlessGranted(
-            'TOGGLE',
-            $task,
-            "You are not the owner of this task and you are not authorized to toggle it."
-        );
-
         if ($task->getIsDone() === false) {
             $message = 'La tâche %s a bien été marquée comme faite.';
         } else {
