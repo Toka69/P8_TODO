@@ -126,7 +126,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testDeleteByAnotherUser()
     {
-        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'Boby']);
         $this->client->loginUser($this->testUser);
 
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);

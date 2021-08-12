@@ -46,7 +46,7 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->client->request('GET', '/users/create');
         $this->assertResponseIsSuccessful();
-        $otherUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $otherUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'Boby']);
         $this->client->request('GET', '/users/' . $otherUser->getId() . '/edit');
         $this->assertResponseIsSuccessful();
     }
@@ -62,7 +62,7 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame('403');
         $this->client->request('GET', '/users/create');
         $this->assertResponseStatusCodeSame('403');
-        $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'John']);
+        $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'Boby']);
         $this->client->request('GET', '/users/' . $otherUserRoleUser->getId() . '/edit');
         $this->assertResponseStatusCodeSame('403');
     }
