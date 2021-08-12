@@ -25,8 +25,11 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks", name="task_list")
      */
-    public function list(TaskRepository $taskRepository, UserRepository $userRepository, AdapterInterface $cache): Response
-    {
+    public function list(
+        TaskRepository $taskRepository,
+        UserRepository $userRepository,
+        AdapterInterface $cache
+    ): Response {
         $tasksNotDone = $cache->getItem('tasksNotDone');
         if (!$tasksNotDone->isHit()) {
             $tasksNotDone->set($taskRepository->findBy(['isDone' => false]));
