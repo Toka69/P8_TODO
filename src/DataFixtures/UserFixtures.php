@@ -28,11 +28,11 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $user1 = new User();
-        $user1->setUsername('John')
+        $user1->setUsername('anonyme')
             ->setRoles((array)'ROLE_USER')
             ->setPassword($this->passwordHasher->hashPassword(
                 $user1,
-                'test1'
+                ' '
             ))
         ;
         $manager->persist($user1);

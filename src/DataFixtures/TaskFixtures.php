@@ -25,7 +25,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($task1);
 
         $task2 = new Task();
-        $task2->setUser($this->getReference(UserFixtures::USER2))
+        $task2->setUser($this->getReference(UserFixtures::USER1))
             ->setTitle('Wash my car')
             ->setContent('Like new!')
             ->setIsDone(1)
@@ -33,7 +33,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($task2);
 
         $task3 = new Task();
-        $task3->setUser($this->getReference(UserFixtures::USER3))
+        $task3->setUser($this->getReference(UserFixtures::USER1))
             ->setTitle('test 1')
             ->setContent('test')
             ->setIsDone(0)
@@ -41,7 +41,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($task3);
 
         $task4 = new Task();
-        $task4->setUser($this->getReference(UserFixtures::USER4))
+        $task4->setUser($this->getReference(UserFixtures::USER1))
             ->setTitle('test 2')
             ->setContent('test')
             ->setIsDone(0)
@@ -49,7 +49,7 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($task4);
 
         $task5 = new Task();
-        $task5->setUser($this->getReference(UserFixtures::USER3))
+        $task5->setUser($this->getReference(UserFixtures::USER1))
             ->setTitle('test 3')
             ->setContent('test')
             ->setIsDone(1)
@@ -57,24 +57,24 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($task5);
 
         $task6 = new Task();
-        $task6->setUser($this->getReference(UserFixtures::USER4))
-            ->setTitle('test 1')
+        $task6->setUser($this->getReference(UserFixtures::USER1))
+            ->setTitle('test 4')
             ->setContent('test')
             ->setIsDone(0)
         ;
         $manager->persist($task6);
 
         $task7 = new Task();
-        $task7->setUser($this->getReference(UserFixtures::USER4))
-            ->setTitle('test 2')
+        $task7->setUser($this->getReference(UserFixtures::USER1))
+            ->setTitle('test 5')
             ->setContent('test')
             ->setIsDone(0)
         ;
         $manager->persist($task7);
 
         $task8 = new Task();
-        $task8->setUser($this->getReference(UserFixtures::USER4))
-            ->setTitle('test 3')
+        $task8->setUser($this->getReference(UserFixtures::USER1))
+            ->setTitle('test 6')
             ->setContent('test')
             ->setIsDone(1)
         ;
