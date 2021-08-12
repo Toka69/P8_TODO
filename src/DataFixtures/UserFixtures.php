@@ -69,7 +69,7 @@ class UserFixtures extends Fixture
                 $user4,
                 'test'
             ))
-            ->setEmail('test@test.com')
+            ->setEmail('user@test.com')
         ;
         $manager->persist($user4);
         $this->addReference(self::USER4, $user4);
