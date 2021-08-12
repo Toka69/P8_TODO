@@ -35,7 +35,7 @@ class TaskControllerTest extends WebTestCase
             ->get('doctrine')
             ->getManager();
 
-        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'anonyme']);
         $this->client->loginUser($this->testUser);
     }
 
@@ -85,7 +85,7 @@ class TaskControllerTest extends WebTestCase
 
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['title' => 'test 100', 'isDone' => false]);
 
-        $this->assertEquals('user', $task->getUser()->getUsername());
+        $this->assertEquals('anonyme', $task->getUser()->getUserIdentifier());
     }
 
     /**
@@ -126,13 +126,12 @@ class TaskControllerTest extends WebTestCase
      */
     public function testDeleteByAnotherUser()
     {
-        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'Boby']);
         $this->client->loginUser($this->testUser);
 
-        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser->getId()]);
 
-        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
-        $this->client->loginUser($this->testUser);
+        $anotherUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        $this->client->loginUser($anotherUser);
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
