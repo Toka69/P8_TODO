@@ -45,8 +45,11 @@ class TaskController extends AbstractController
     /**
      * @Route("/tasks/done", name="task_done")
      */
-    public function listIsDone(TaskRepository $taskRepository, AdapterInterface $cache): Response
-    {
+    public function listIsDone(
+        TaskRepository $taskRepository,
+        UserRepository $userRepository,
+        AdapterInterface $cache
+    ): Response {
         $tasksIsDone = $cache->getItem('tasksIsDone');
         if (!$tasksIsDone->isHit()) {
             $tasksIsDone->set($taskRepository->findBy(['isDone' => true]));
@@ -54,7 +57,8 @@ class TaskController extends AbstractController
         }
 
         return $this->render('task/list.html.twig', [
-            'tasks' => $cache->getItem('tasksIsDone')->get()
+            'tasks' => $cache->getItem('tasksIsDone')->get(),
+            'users' => $userRepository->findAll()
         ]);
     }
 
