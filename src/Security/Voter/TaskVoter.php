@@ -34,8 +34,11 @@ class TaskVoter extends Voter
             return true;
         }
 
-        if ($user instanceof UserInterface && current($user->getRoles()) === "ROLE_ADMIN" && $subject->getUser()->getUsername() === "anonyme")
-        {
+        if (
+            $user instanceof UserInterface &&
+            current($user->getRoles()) === "ROLE_ADMIN" &&
+            $subject->getUser()->getUsername() === "anonyme"
+        ) {
             return true;
         }
 
