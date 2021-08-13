@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 class TaskControllerTest extends WebTestCase
 {
@@ -112,6 +113,8 @@ class TaskControllerTest extends WebTestCase
      */
     public function testDelete(): void
     {
+        $this->client->request('GET', '/tasks');
+
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
@@ -119,6 +122,36 @@ class TaskControllerTest extends WebTestCase
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
         $this->assertEquals(null, $test, 'The task has not been deleted');
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'task_list',
+            [],
+            'This is not the expected route'
+        );
+
+    }
+
+    public function testDeleteWithNoReferer()
+    {
+        $this->testCreate();
+
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser]);
+
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/delete', [], [], ["HTTP_REFERER" => ""]);
+
+        $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
+
+        $this->assertEquals(null, $test, 'The task has not been deleted');
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
     }
 
     /**
@@ -143,7 +176,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassIsDone(): void
     {
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/tasks');
 
         $task = $this->entityManager->getRepository(Task::class)
             ->findOneBy(
@@ -162,12 +195,10 @@ class TaskControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         $this->assertRouteSame(
-            'homepage',
+            'task_list',
             [],
             'This is not the expected route'
         );
-
-
     }
 
     /**
@@ -175,7 +206,7 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassToDo(): void
     {
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/tasks');
 
         $task = $this->entityManager->getRepository(Task::class)
             ->findOneBy(
@@ -194,7 +225,7 @@ class TaskControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         $this->assertRouteSame(
-            'homepage',
+            'task_list',
             [],
             'This is not the expected route'
         );
@@ -275,5 +306,15 @@ class TaskControllerTest extends WebTestCase
         }
 
         $this->assertStringContainsString('1', (string)$test, 'The displayed tasks are not correct');
+    }
+
+    /**
+     * @param $user
+     * Connect easily with the user of your choice.
+     */
+    public function connectWithUser($user)
+    {
+        $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $user]);
+        $this->client->loginUser($this->testUser);
     }
 }
