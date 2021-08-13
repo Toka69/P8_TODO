@@ -143,6 +143,8 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassIsDone(): void
     {
+        $this->client->request('GET', '/');
+
         $task = $this->entityManager->getRepository(Task::class)
             ->findOneBy(
                 [
@@ -156,6 +158,16 @@ class TaskControllerTest extends WebTestCase
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
         $this->assertEquals(true, $test->getIsDone());
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
+
+
     }
 
     /**
@@ -163,6 +175,8 @@ class TaskControllerTest extends WebTestCase
      */
     public function testPassToDo(): void
     {
+        $this->client->request('GET', '/');
+
         $task = $this->entityManager->getRepository(Task::class)
             ->findOneBy(
                 [
@@ -176,6 +190,14 @@ class TaskControllerTest extends WebTestCase
         $test = $this->entityManager->getRepository(Task::class)->findOneBy(['id' => $task->getId()]);
 
         $this->assertEquals(false, $test->getIsDone());
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
     }
 
     protected function tearDown(): void

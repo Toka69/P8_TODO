@@ -93,4 +93,16 @@ class SecurityControllerTest extends WebTestCase
         $this->assertRouteSame('app_register');
         $this->assertSelectorTextContains('button', 'Ajouter');
     }
+
+    public function testRedirectAlreadyConnected(): void
+    {
+        $this->client->loginUser($this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']));
+
+        $this->client->request('GET', '/login');
+
+        $this->client->followRedirect();
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Bienvenue sur Todo List');
+    }
 }
