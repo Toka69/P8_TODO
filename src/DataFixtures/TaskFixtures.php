@@ -10,6 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 /**
  * Class TaskFixtures
  * @package App\DataFixtures
+ * @codeCoverageIgnore
  */
 class TaskFixtures extends Fixture implements DependentFixtureInterface
 {

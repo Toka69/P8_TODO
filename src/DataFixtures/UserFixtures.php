@@ -10,6 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 /**
  * Class UserFixtures
  * @package App\DataFixtures
+ * @codeCoverageIgnore
  */
 class UserFixtures extends Fixture
 {
