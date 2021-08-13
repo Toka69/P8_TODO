@@ -13,6 +13,7 @@ use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class UserController
@@ -60,6 +61,7 @@ class UserController extends AbstractController
      */
     public function edit(
         User $user,
+        Security $security,
         HandlerFactoryInterface $handlerFactory,
         Request $request
     ) {
@@ -72,7 +74,7 @@ class UserController extends AbstractController
         $handler = $handlerFactory->createHandler(EditUserHandler::class);
 
         if ($handler->handle($request, $user)) {
-            if ($user->getRoles() === ["ROLE_ADMIN"]) {
+            if (current($security->getUser()->getRoles()) === "ROLE_ADMIN") {
                 return $this->redirectToRoute('user_list');
             }
 
