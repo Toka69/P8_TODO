@@ -130,7 +130,6 @@ class TaskControllerTest extends WebTestCase
             [],
             'This is not the expected route'
         );
-
     }
 
     public function testDeleteWithNoReferer()
@@ -169,6 +168,19 @@ class TaskControllerTest extends WebTestCase
         $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame('403');
+    }
+
+    public function testDeleteAnonymousByAdmin(): void
+    {
+        $this->client->followRedirects();
+
+        $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser->getId()]);
+
+        $this->connectWithUser('admin');
+
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
+
+        $this->assertSelectorTextContains('strong', 'Superbe !');
     }
 
     /**
