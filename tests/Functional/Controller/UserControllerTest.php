@@ -91,7 +91,7 @@ class UserControllerTest extends WebTestCase
     /**
      * Edit a user
      */
-    public function testEdit()
+    public function testEditIfAdmin()
     {
         $lastUser = $this->entityManager->getRepository(User::class)->findOneBy([], ['id' => 'DESC'], 1, 0);
 
@@ -111,6 +111,41 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals('bob' . $i, $test->getUsername());
     }
 
+    public function testEditIfUser()
+    {
+        $user = $this->connectWithUser('user');
+
+        $this->client->request('GET', '/users/'. $user->getId() .'/edit');
+
+        $this->client->submitForm('Modifier', [
+            'user[username]' => $user->getUserIdentifier() . 1,
+            'user[plainPassword][first]' => 'test',
+            'user[plainPassword][second]' => 'test',
+            'user[email]' => $user->getUserIdentifier() . 1 . '@test.com'
+        ]);
+
+        $test = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user->getId()]);
+
+        $this->assertEquals($user->getUserIdentifier() . 1, $test->getUsername());
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
+
+        $this->client->request('GET', '/users/'. $user->getId() .'/edit');
+
+        $this->client->submitForm('Modifier', [
+            'user[username]' => $user->getUserIdentifier(),
+            'user[plainPassword][first]' => 'test',
+            'user[plainPassword][second]' => 'test',
+            'user[email]' => $user->getUserIdentifier().'@test.com'
+        ]);
+    }
+
     /**
      * @param $user
      * Connect easily with the user of your choice.
@@ -119,6 +154,8 @@ class UserControllerTest extends WebTestCase
     {
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $user]);
         $this->client->loginUser($this->testUser);
+
+        return $this->testUser;
     }
 
     /**

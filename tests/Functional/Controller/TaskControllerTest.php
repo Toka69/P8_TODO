@@ -231,6 +231,22 @@ class TaskControllerTest extends WebTestCase
         );
     }
 
+    public function testToggleWithNoReferer(): void
+    {
+        $task = $this->entityManager->getRepository(Task::class)
+            ->findOneBy(['user' => $this->testUser]);
+
+        $this->client->request('GET', '/tasks/' . $task->getId() . '/toggle', [], [], ["HTML_REFERER" => ""]);
+
+        $this->client->followRedirect();
+
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();

@@ -124,7 +124,7 @@ class TaskController extends AbstractController
 
         $referer = $request->headers->get('referer');
 
-        if ($referer !== null || empty($referer)) {
+        if ($referer !== null && empty($referer) === false) {
             return new RedirectResponse($referer);
         }
 
@@ -149,7 +149,7 @@ class TaskController extends AbstractController
 
         $referer = $request->headers->get('referer');
 
-        if (empty($referer) === false && $referer !== null) {
+        if ($referer !== null && empty($referer) === false) {
             return new RedirectResponse($referer);
         }
 
