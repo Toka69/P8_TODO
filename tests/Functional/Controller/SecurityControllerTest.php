@@ -33,7 +33,7 @@ class SecurityControllerTest extends WebTestCase
     /**
      * Login and check than the user is redirected on the homepage.
      */
-    public function testLogin(): void
+    public function testLoginSuccess(): void
     {
         $this->client->request('GET', '/login');
 
@@ -46,6 +46,33 @@ class SecurityControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenue');
+        $this->assertRouteSame(
+            'homepage',
+            [],
+            'This is not the expected route'
+        );
+    }
+
+    /**
+     * Login and check than the user is redirected on the login page.
+     */
+    public function testLoginFailure(): void
+    {
+        $this->client->followRedirects();
+        $this->client->request('GET', '/login');
+
+        $this->client->submitForm('Se connecter', [
+            '_username' => 'admiqqdfsqdffsdfdsn',
+            '_password' => 'testqsdsqdqssd'
+        ]);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('button', 'Se connecter');
+        $this->assertRouteSame(
+            'security_login',
+            [],
+            'This is not the expected route'
+        );
     }
 
     /**
@@ -61,6 +88,11 @@ class SecurityControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('button', 'Se connecter');
+        $this->assertRouteSame(
+            'security_login',
+            [],
+            'This is not the expected route'
+        );
     }
 
     /**
