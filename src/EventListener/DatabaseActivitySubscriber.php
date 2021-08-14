@@ -28,6 +28,7 @@ class DatabaseActivitySubscriber implements EventSubscriber
 
     /**
      * @return array
+     * @codeCoverageIgnore
      */
     public function getSubscribedEvents(): array
     {

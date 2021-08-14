@@ -25,6 +25,14 @@
                         <p>{{ task.content }}</p>
                     </div>
                     <div>
+                        <h6>
+                            Auteur:
+                            {% for user in users %}
+                                {% if user.id == task.user.id %}
+                                    {{ user.username }}
+                                {% endif %}
+                            {% endfor %}
+                        </h6>
                         <a href="{{ path('task_toggle', {'id': task.id}) }}" class="btn btn-success btn-sm pull-right">
                             {% if not task.isDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
                         </a>

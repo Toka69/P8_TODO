@@ -38,7 +38,7 @@ class DefaultControllerTest extends WebTestCase
         $this->testUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'user']);
         $this->client->loginUser($this->testUser);
 
-        $crawler = $this->client->request('GET', '/');
+        $this->client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Bienvenue');

@@ -16,6 +16,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
+/**
+ * Class LoginFormAuthenticator
+ * @package App\Security
+ */
 class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
     public const LOGIN_ROUTE = 'security_login';
@@ -33,6 +37,11 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
             && $request->isMethod('POST');
     }
 
+    /**
+     * @param Request $request
+     * @return PassportInterface
+     * @codeCoverageIgnore ignore
+     */
     public function authenticate(Request $request): PassportInterface
     {
             $username = $request->request->get('login')['username'];
@@ -46,11 +55,32 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
         );
     }
 
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $firewallName
+     * @return Response|null
+     *
+     * Code coverage ignore because test exist in
+     * App\Tests\Functional\Controller\SecurityControllerTest::testLoginSuccess
+     * but not detected by phpunit.
+     * @codeCoverageIgnore
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         return new RedirectResponse($this->urlGenerator->generate('homepage'));
     }
 
+    /**
+     * @param Request $request
+     * @param AuthenticationException $exception
+     * @return Response|null
+     *
+     * Code coverage ignore because test exist in
+     * App\Tests\Functional\Controller\SecurityControllerTest::testLoginFailure
+     * but not detected by phpunit.
+     * @codeCoverageIgnore
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         return new RedirectResponse($this->urlGenerator->generate('security_login'));

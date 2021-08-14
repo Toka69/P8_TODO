@@ -7,6 +7,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class TaskVoter
+ * @package App\Security\Voter
+ */
 class TaskVoter extends Voter
 {
     /**
@@ -31,6 +35,14 @@ class TaskVoter extends Voter
         $user = $token->getUser();
 
         if ($user instanceof UserInterface && $user === $subject->getUser()) {
+            return true;
+        }
+
+        if (
+            $user instanceof UserInterface &&
+            current($user->getRoles()) === "ROLE_ADMIN" &&
+            $subject->getUser()->getUsername() === "anonyme"
+        ) {
             return true;
         }
 
