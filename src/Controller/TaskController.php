@@ -9,6 +9,7 @@ use App\HandlerFactory\HandlerFactoryInterface;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
@@ -23,12 +24,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TaskController extends AbstractController
 {
+    /**
+     * @var CacheItem
+     */
     protected CacheItem $cacheUsers;
 
+    /**
+     * @var CacheItem
+     */
     protected CacheItem $cacheTasksIsDone;
 
+    /**
+     * @var CacheItem
+     */
     protected CacheItem $cacheTasksNotDone;
 
+    /**
+     * TaskController constructor.
+     * @param AdapterInterface $cache
+     * @param UserRepository $userRepository
+     * @param TaskRepository $taskRepository
+     * @throws InvalidArgumentException
+     */
     public function __construct(AdapterInterface $cache, UserRepository $userRepository, TaskRepository $taskRepository)
     {
         $tasksNotDone = $cache->getItem('tasksNotDone');

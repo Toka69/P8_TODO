@@ -7,6 +7,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class UserVoter
+ * @package App\Security\Voter
+ */
 class UserVoter extends Voter
 {
     /**
