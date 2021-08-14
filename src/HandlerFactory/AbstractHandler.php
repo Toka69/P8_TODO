@@ -41,6 +41,7 @@ abstract class AbstractHandler implements HandlerInterface
 
     /**
      * @param OptionsResolver $resolver
+     * @codeCoverageIgnore
      */
     protected function configure(OptionsResolver $resolver): void
     {

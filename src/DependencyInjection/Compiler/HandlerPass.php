@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Class HandlerPass
  * @package App\DependencyInjection\Compiler
+ * @codeCoverageIgnore
  *
  */
 class HandlerPass implements CompilerPassInterface
