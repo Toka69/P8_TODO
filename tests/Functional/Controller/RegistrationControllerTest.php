@@ -39,7 +39,7 @@ class RegistrationControllerTest extends WebTestCase
         $i = $lastUser->getId() + 1;
 
         $this->client->submitForm('Ajouter', [
-            'registration_form[username]' => 'jack'. $i,
+            'registration_form[username]' => 'jack' . $i,
             'registration_form[plainPassword][first]' => 'testtest',
             'registration_form[plainPassword][second]' => 'testtest',
             'registration_form[email]' => 'jack' . $i . '@test.com'

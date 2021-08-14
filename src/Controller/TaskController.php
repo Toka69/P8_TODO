@@ -29,7 +29,8 @@ class TaskController extends AbstractController
 
     protected CacheItem $cacheTasksNotDone;
 
-    public function __construct(AdapterInterface $cache, UserRepository $userRepository, TaskRepository $taskRepository){
+    public function __construct(AdapterInterface $cache, UserRepository $userRepository, TaskRepository $taskRepository)
+    {
         $tasksNotDone = $cache->getItem('tasksNotDone');
         if (!$tasksNotDone->isHit()) {
             $tasksNotDone->set($taskRepository->findBy(['isDone' => false]));

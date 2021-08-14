@@ -57,7 +57,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
      * @param string $firewallName
      * @return Response|null
      *
-     * Code coverage ignore because test exist in App\Tests\Functional\Controller\SecurityControllerTest::testLoginSuccess
+     * Code coverage ignore because test exist in
+     * App\Tests\Functional\Controller\SecurityControllerTest::testLoginSuccess
      * but not detected by phpunit.
      * @codeCoverageIgnore
      */
@@ -71,7 +72,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator implements Authentica
      * @param AuthenticationException $exception
      * @return Response|null
      *
-     * Code coverage ignore because test exist in App\Tests\Functional\Controller\SecurityControllerTest::testLoginFailure
+     * Code coverage ignore because test exist in
+     * App\Tests\Functional\Controller\SecurityControllerTest::testLoginFailure
      * but not detected by phpunit.
      * @codeCoverageIgnore
      */

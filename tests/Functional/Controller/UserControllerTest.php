@@ -115,7 +115,7 @@ class UserControllerTest extends WebTestCase
     {
         $user = $this->connectWithUser('user');
 
-        $this->client->request('GET', '/users/'. $user->getId() .'/edit');
+        $this->client->request('GET', '/users/' . $user->getId() . '/edit');
 
         $this->client->submitForm('Modifier', [
             'user[username]' => $user->getUserIdentifier() . 1,
@@ -136,13 +136,13 @@ class UserControllerTest extends WebTestCase
             'This is not the expected route'
         );
 
-        $this->client->request('GET', '/users/'. $user->getId() .'/edit');
+        $this->client->request('GET', '/users/' . $user->getId() . '/edit');
 
         $this->client->submitForm('Modifier', [
             'user[username]' => $user->getUserIdentifier(),
             'user[plainPassword][first]' => 'test',
             'user[plainPassword][second]' => 'test',
-            'user[email]' => $user->getUserIdentifier().'@test.com'
+            'user[email]' => $user->getUserIdentifier() . '@test.com'
         ]);
     }
 
