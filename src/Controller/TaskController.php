@@ -11,6 +11,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,43 +23,54 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TaskController extends AbstractController
 {
-    /**
-     * @Route("/tasks", name="task_list")
-     */
-    public function list(
-        TaskRepository $taskRepository,
-        UserRepository $userRepository,
-        AdapterInterface $cache
-    ): Response {
+    protected CacheItem $cacheUsers;
+
+    protected CacheItem $cacheTasksIsDone;
+
+    protected CacheItem $cacheTasksNotDone;
+
+    public function __construct(AdapterInterface $cache, UserRepository $userRepository, TaskRepository $taskRepository){
         $tasksNotDone = $cache->getItem('tasksNotDone');
         if (!$tasksNotDone->isHit()) {
             $tasksNotDone->set($taskRepository->findBy(['isDone' => false]));
             $cache->save($tasksNotDone);
         }
+        $this->cacheTasksNotDone = $tasksNotDone;
 
+        $tasksIsDone = $cache->getItem('tasksIsDone');
+        if (!$tasksIsDone->isHit()) {
+            $tasksIsDone->set($taskRepository->findBy(['isDone' => true]));
+            $cache->save($tasksIsDone);
+        }
+        $this->cacheTasksIsDone = $tasksIsDone;
+
+        $users = $cache->getItem('users');
+        if (!$users->isHit()) {
+            $users->set($userRepository->findAll());
+            $cache->save($users);
+        }
+        $this->cacheUsers = $users;
+    }
+
+    /**
+     * @Route("/tasks", name="task_list")
+     */
+    public function list(): Response
+    {
         return $this->render('task/list.html.twig', [
-            'tasks' => $cache->getItem('tasksNotDone')->get(),
-            'users' => $userRepository->findAll()
+            'tasks' => $this->cacheTasksNotDone->get(),
+            'users' => $this->cacheUsers->get()
         ]);
     }
 
     /**
      * @Route("/tasks/done", name="task_done")
      */
-    public function listIsDone(
-        TaskRepository $taskRepository,
-        UserRepository $userRepository,
-        AdapterInterface $cache
-    ): Response {
-        $tasksIsDone = $cache->getItem('tasksIsDone');
-        if (!$tasksIsDone->isHit()) {
-            $tasksIsDone->set($taskRepository->findBy(['isDone' => true]));
-            $cache->save($tasksIsDone);
-        }
-
+    public function listIsDone(): Response
+    {
         return $this->render('task/list.html.twig', [
-            'tasks' => $cache->getItem('tasksIsDone')->get(),
-            'users' => $userRepository->findAll()
+            'tasks' => $this->cacheTasksIsDone->get(),
+            'users' => $this->cacheUsers->get()
         ]);
     }
 
