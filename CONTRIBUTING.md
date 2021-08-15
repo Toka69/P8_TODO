@@ -1,4 +1,4 @@
-# ToDo & CO - Contributing
+# P8 ToDo & Co - Contributing
 
 ---
 
@@ -11,6 +11,9 @@ Here you will find the guide lines to contribute to the project.
 - Respect everyone!
 - Reporting bugs with issues.
 - Suggest Enhancements wit Pull Requests from your fork.
+
+### Quality processus
+
 
 ### Testing:
 

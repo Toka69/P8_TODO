@@ -1,4 +1,4 @@
-# P8_TODO
+# P8 ToDo & Co - Readme
 
 This project consists of taking over a legacy application, analyzing it and improving it.
 
