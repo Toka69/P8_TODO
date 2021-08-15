@@ -56,15 +56,17 @@ class UserControllerTest extends WebTestCase
      */
     public function testSecurityRoleUser()
     {
+        $this->client->followRedirects();
+
         $this->connectWithUser('user');
 
         $this->client->request('GET', '/users');
-        $this->assertResponseStatusCodeSame('403');
+        $this->assertSelectorTextContains('strong', 'Oops !');
         $this->client->request('GET', '/users/create');
-        $this->assertResponseStatusCodeSame('403');
+        $this->assertSelectorTextContains('strong', 'Oops !');
         $otherUserRoleUser = $this->entityManager->getRepository(User::class)->findOneBy(['username' => 'Boby']);
         $this->client->request('GET', '/users/' . $otherUserRoleUser->getId() . '/edit');
-        $this->assertResponseStatusCodeSame('403');
+        $this->assertSelectorTextContains('strong', 'Oops !');
     }
 
     /**

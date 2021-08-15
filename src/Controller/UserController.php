@@ -23,7 +23,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="You are not allowed to access!")
      */
     public function list(UserRepository $userRepository, AdapterInterface $cache): Response
     {
@@ -37,7 +37,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/create", name="user_create")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="You are not allowed to access!")
      */
     public function create(
         Request $request,
