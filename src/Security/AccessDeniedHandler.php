@@ -26,8 +26,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
         $referer = $request->headers->get('referer');
 
-        if($referer === null || empty($referer))
-        {
+        if ($referer === null || empty($referer)) {
             return new RedirectResponse("/");
         }
         return new RedirectResponse($request->headers->get('referer'));
