@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Security;
-
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +20,9 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $this->session = $session;
     }
 
-    public function handle(Request $request, AccessDeniedException $accessDeniedException){
-        $this->session->getFlashBag()->add('error', $accessDeniedException->getMessage());
+    public function handle(Request $request, AccessDeniedException $exception)
+    {
+        $this->session->getFlashBag()->add('error', $exception->getMessage());
 
         return new RedirectResponse($request->headers->get('referer'));
     }
