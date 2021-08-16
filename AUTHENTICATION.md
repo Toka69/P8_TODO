@@ -73,10 +73,10 @@ in the Task and User controllers.
 
 ## Documentation
 
-https://symfony.com/doc/current/security.html
-https://symfony.com/doc/current/security/authenticator_manager.html
-https://symfony.com/doc/current/components/security/authentication.html
-https://symfony.com/doc/current/security/voters.html
-https://symfony.com/doc/current/reference/constraints/UniqueEntity.html
-https://symfony.com/blog/new-in-symfony-5-3-passwordhasher-component
-https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/security.html
+[Symfony Security](https://symfony.com/doc/current/security.html)
+[The Authenticator Manager](https://symfony.com/doc/current/security/authenticator_manager.html)
+[The Authentication System](https://symfony.com/doc/current/components/security/authentication.html)
+[Voters](https://symfony.com/doc/current/security/voters.html)
+[UniqueEntity](https://symfony.com/doc/current/reference/constraints/UniqueEntity.html)
+[Password Hasher](https://symfony.com/blog/new-in-symfony-5-3-passwordhasher-component)
+[Annotations](https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/security.html)
