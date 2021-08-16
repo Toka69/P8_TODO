@@ -23,7 +23,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page!")
      */
     public function list(UserRepository $userRepository, AdapterInterface $cache): Response
     {
@@ -37,7 +37,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/create", name="user_create")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page!")
      */
     public function create(
         Request $request,
@@ -68,7 +68,7 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted(
             'EDIT',
             $user,
-            "You are not this user and you are not authorized to edit it."
+            "Vous n'êtes pas cet utilisateur et vous n'êtes pas autorisé à l'éditer!"
         );
 
         $handler = $handlerFactory->createHandler(EditUserHandler::class);

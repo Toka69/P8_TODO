@@ -99,7 +99,7 @@ class TaskController extends AbstractController
         $this->denyAccessUnlessGranted(
             'EDIT',
             $task,
-            "You are not the owner of this task and you are not authorized to edit it."
+            "Vous n'êtes pas le propriétaire de cette tâche et vous n'êtes pas autorisé à la modifier!"
         );
 
         $handler = $handlerFactory->createHandler(EditTaskHandler::class);
@@ -122,7 +122,7 @@ class TaskController extends AbstractController
         $this->denyAccessUnlessGranted(
             'TOGGLE',
             $task,
-            "You are not the owner of this task and you are not authorized to toggle it."
+            "Vous n'êtes pas le propriétaire de cette tâche et vous n'êtes pas autorisé à la basculer!"
         );
 
         if ($task->getIsDone() === false) {
@@ -152,7 +152,7 @@ class TaskController extends AbstractController
         $this->denyAccessUnlessGranted(
             'DELETE',
             $task,
-            "You are not the owner of this task and you are not authorized to delete it."
+            "Vous n'êtes pas le propriétaire de cette tâche et vous n'êtes pas autorisé à l'effacer!"
         );
 
         $entityManager->remove($task);

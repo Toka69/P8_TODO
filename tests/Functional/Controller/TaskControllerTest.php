@@ -158,6 +158,8 @@ class TaskControllerTest extends WebTestCase
      */
     public function testDeleteByAnotherUser()
     {
+        $this->client->followRedirects();
+
         $this->client->loginUser($this->testUser);
 
         $task = $this->entityManager->getRepository(Task::class)->findOneBy(['user' => $this->testUser->getId()]);
@@ -167,7 +169,7 @@ class TaskControllerTest extends WebTestCase
 
         $this->client->request('GET', '/tasks/' . $task->getId() . '/delete');
 
-        $this->assertResponseStatusCodeSame('403');
+        $this->assertSelectorTextContains('strong', 'Oops !');
     }
 
     public function testDeleteAnonymousByAdmin(): void
