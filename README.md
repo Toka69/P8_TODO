@@ -62,11 +62,4 @@ To build it:
    ```
    /build/docker-compose up -d --build
    ```
-### Test online
-
-The project is hosted online. It works as a demo, and the content is refresh everyday. Fixtures are reloaded and uploaded files are erased.
-So you can try it!
-
-https://p8.matthias-leroux.fr
-
 
