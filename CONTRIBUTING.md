@@ -6,6 +6,8 @@
 
 Here you will find the guide lines to contribute to the project.
 
+In first, you can read the README.md an AUTHENTICATION.md to know how the project works.
+
 ### Code of conduct
 
 - Respect everyone!
@@ -13,6 +15,12 @@ Here you will find the guide lines to contribute to the project.
 - Suggest Enhancements wit Pull Requests from your fork.
 
 ### Quality processus
+
+Quality is controlled by the various tools put in place in continuous integration. As well as by the code coverage of PHPUNIT.
+
+Github branches have been configured to only accept pull requests that have passed the continuous integration test (explained in the next section). And a review by at least one of the project managers is mandatory.
+
+Regarding the code coverage of PHPUnit, the goal is to aim for 100% for the pieces of code that are relevant.
 
 
 ### Testing:
