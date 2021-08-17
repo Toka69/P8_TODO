@@ -34,7 +34,7 @@ This brings us to the security.yaml configuration file:
 
 Still in the security.yaml file, we now enter the firewall configuration:
 - We have two personalized services: the AccessDeniedHandler and LoginFormAuthenticator. The first manages connection errors (redirection and display of errors),
-  the second is the authentication form. The'AccessDeniedHandler is first because it takes priority over the rest.
+  the second is the authentication form. The AccessDeniedHandler is first because it takes priority over the rest.
 - Then we have the redirection route when disconnecting.
 - Finally, the entry point for unauthenticated visitors which is the authentication form.
 
