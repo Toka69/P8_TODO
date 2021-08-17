@@ -30,16 +30,23 @@ You will find a gitlab-ci.yaml file allowing you to set up continuous integratio
 For this, you can create a clone of your Github project in Gitlab which will be synchronized with each push or pull request 
 and which will play the tests. The result appears in Github.
 
-Tools used :
+Tools used in Gitlab-CI:
 - SECURITY-CHECKER
-- PHPSTAN
-- PHPCS
-- PHPMD
-- PHPMETRICS
-- TWIGCS
-- PHPUNIT
-- GOOGLE LIGHTHOUSE
-- BLACKFIRE
+  
+- Coding Standards :
+    - PHPSTAN
+    - PHPCS
+    - PHPMD
+    - PHPMETRICS
+    - TWIGCS
+  
+- Unit tests:
+    - PHPUNIT
+  
+PERFORMANCES :
+
+- GOOGLE LIGHTHOUSE for the frontend.
+- BLACKFIRE for the backend
 
 ### Suggestions
 
