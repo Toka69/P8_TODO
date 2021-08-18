@@ -52,6 +52,17 @@ A step by step series of examples that tell you how to get a development env run
    
 9) It's ready!
 
+
+If you want the best performance in production, don't forget to optimize the composer:
+```
+composer dump-autoload --no-dev --classmap-authoritative -o
+```
+If you want to go back to the development environment:
+
+In composer.json, set the line "optimize-autoloader" to false and type:
+```
+composer dump-autoload
+```
 ### Docker
 
 If you want to use a ready container for this project you can build the docker-compose inside the "build" directory. Previously, you can
