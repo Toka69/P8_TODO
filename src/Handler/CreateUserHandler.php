@@ -52,6 +52,7 @@ class CreateUserHandler extends AbstractHandler
      */
     protected function process($data, array $options): void
     {
+        $data->setRoles([current($data->getRoles())]);
         $data->setPassword(
             $this->passwordHasher->hashPassword(
                 $data,
