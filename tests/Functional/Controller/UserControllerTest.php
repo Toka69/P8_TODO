@@ -80,8 +80,8 @@ class UserControllerTest extends WebTestCase
         $i = $lastUser->getId() + 1;
         $this->client->submitForm('Ajouter', [
             'user[username]' => 'user' . $i,
-            'user[plainPassword][first]' => 'test',
-            'user[plainPassword][second]' => 'test',
+            'user[plainPassword][first]' => 'testtest',
+            'user[plainPassword][second]' => 'testtest',
             'user[email]' => 'user' . $i . '@test.com'
         ]);
 
@@ -103,8 +103,8 @@ class UserControllerTest extends WebTestCase
 
         $this->client->submitForm('Modifier', [
             'user[username]' => 'bob' . $i,
-            'user[plainPassword][first]' => 'test',
-            'user[plainPassword][second]' => 'test',
+            'user[plainPassword][first]' => 'testtest',
+            'user[plainPassword][second]' => 'testtest',
             'user[email]' => 'bob' . $i . '@test.com'
         ]);
 
@@ -121,8 +121,8 @@ class UserControllerTest extends WebTestCase
 
         $this->client->submitForm('Modifier', [
             'user[username]' => $user->getUserIdentifier() . 1,
-            'user[plainPassword][first]' => 'test',
-            'user[plainPassword][second]' => 'test',
+            'user[plainPassword][first]' => 'testtest',
+            'user[plainPassword][second]' => 'testtest',
             'user[email]' => $user->getUserIdentifier() . 1 . '@test.com'
         ]);
 
