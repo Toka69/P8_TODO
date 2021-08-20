@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class UserType
@@ -40,7 +42,16 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Tapez le mot de passe à nouveau'),
-                'required' => false
+                'required' => false,
+                'invalid_message' => 'Les mots de passe doivent être identiques!',
+                'options' => ['attr' => ['autocomplete' => 'new-password']],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit avoir au moins {{ limit }} caractères',
+                        'max' => 4096,
+                    ]),
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Adresse email'
